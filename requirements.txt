@@ -4,3 +4,4 @@ Flask==1.1.0
 python-frontmatter==0.4.5
 mistune==0.8.4
 bleach==3.1.0
+
