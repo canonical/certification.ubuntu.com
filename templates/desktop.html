@@ -1,0 +1,195 @@
+{% extends '_layout.html' %} {% block content %}
+{{ context }}
+
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li class="active">
+      <a href="/desktop/">
+        Ubuntu Desktop
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>Ubuntu Desktop certified hardware</h1>
+  </div>
+
+  <div class="main">
+    <p class="large">
+      As the world’s most popular open-source desktop operating system, Ubuntu
+      is used extensively throughout the enterprise, government, public and
+      education sectors. To meet the demand for preloaded hardware from these
+      areas, Canonical is committed to working closely with high-profile
+      hardware partners around the world. Customers can choose from hundreds of
+      PC configurations that ship preloaded with Ubuntu LTS (Long Term Support),
+      bringing all the major benefits of factory-level quality assurance
+      standards, full support, and tight integration with BIOS, component and
+      board-level certification.
+    </p>
+    <p class="large">
+      Preloaded Ubuntu LTS OEM versions offer full Canonical factory-level
+      certification, BIOS, component integration and support, where benefits
+      include full support for security patches, bug fixes and more for five
+      years from the date of each LTS release.
+    </p>
+    <p class="large">
+      The certification chart below highlights OEM partner PCs available
+      preloaded with Ubuntu. Certified OEM images are also available for Ubuntu
+      Advantage customers.
+    </p>
+
+    <div class="twelve-col cosy-fit">
+      <div class="three-col">
+        <form action="/desktop/models/" method="get" class="body-search">
+          <label for="id_query">Search</label>
+          <input id="id_query" type="text" name="query" />
+
+          <input
+            id="id_category_0"
+            name="category"
+            type="hidden"
+            value="Desktop"
+          />
+
+          <input
+            id="id_category_1"
+            name="category"
+            type="hidden"
+            value="Laptop"
+          />
+        </form>
+      </div>
+    </div>
+
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Make</th>
+          <th scope="col">Desktops</th>
+          <th scope="col">Laptops</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Dell"
+              >Dell</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Desktop&amp;vendors=Dell">114</a>
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Laptop&amp;vendors=Dell">223</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Lenovo"
+              >Lenovo</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Desktop&amp;vendors=Lenovo"
+              >42</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Laptop&amp;vendors=Lenovo">59</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=HP"
+              >HP</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Desktop&amp;vendors=HP">12</a>
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Laptop&amp;vendors=HP">9</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Acer"
+              >Acer</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Desktop&amp;vendors=Acer">4</a>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Intel"
+              >Intel</a
+            >
+          </td>
+          <td>
+            <a href="/desktop/models/?category=Desktop&amp;vendors=Intel">3</a>
+          </td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="large">
+      Each new release of Ubuntu brings exciting new hardware to Ubuntu users.
+      Take a look at certified hardware by release.
+    </p>
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Release</th>
+          <th scope="col">Desktops</th>
+          <th scope="col">Laptops</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for release in releases %}
+        <tr>
+          <td>
+            <a
+              href="/desktop/models/?release={{
+                release.release
+              }}&amp;category=Desktop&amp;category=Laptop"
+              >{{ release.release }}</a
+            >
+          </td>
+          <td>
+            <a
+              href="/desktop/models/?release={{
+                release.release
+              }}&amp;category=Desktop"
+              >{{ release.desktops }}</a
+            >
+          </td>
+          <td>
+            <a
+              href="/desktop/models/?release={{
+                release.release
+              }}&amp;category=Laptop"
+              >{{ release.laptops }}</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
