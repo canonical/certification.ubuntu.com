@@ -14,3 +14,7 @@ def get(endpoint):
 
 def get_releases():
     return get("certifiedreleases")
+
+
+def get_vendors():
+    return get("certifiedmakes")

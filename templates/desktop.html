@@ -72,78 +72,34 @@
         </tr>
       </thead>
       <tbody>
+        {% for vendor in vendors %}
         <tr>
           <td>
             <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Dell"
-              >Dell</a
+              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors={{
+                vendor.make
+              }}"
+              >{{ vendor.make }}</a
             >
           </td>
-          <td>
-            <a href="/desktop/models/?category=Desktop&amp;vendors=Dell">114</a>
-          </td>
-          <td>
-            <a href="/desktop/models/?category=Laptop&amp;vendors=Dell">223</a>
-          </td>
-        </tr>
-
-        <tr>
           <td>
             <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Lenovo"
-              >Lenovo</a
+              href="/desktop/models/?category=Desktop&amp;vendors={{
+                vendor.make
+              }}"
+              >{{ vendor.desktops }}</a
             >
           </td>
-          <td>
-            <a href="/desktop/models/?category=Desktop&amp;vendors=Lenovo"
-              >42</a
-            >
-          </td>
-          <td>
-            <a href="/desktop/models/?category=Laptop&amp;vendors=Lenovo">59</a>
-          </td>
-        </tr>
-
-        <tr>
           <td>
             <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=HP"
-              >HP</a
+              href="/desktop/models/?category=Laptop&amp;vendors={{
+                vendor.make
+              }}"
+              >{{ vendor.laptops }}</a
             >
           </td>
-          <td>
-            <a href="/desktop/models/?category=Desktop&amp;vendors=HP">12</a>
-          </td>
-          <td>
-            <a href="/desktop/models/?category=Laptop&amp;vendors=HP">9</a>
-          </td>
         </tr>
-
-        <tr>
-          <td>
-            <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Acer"
-              >Acer</a
-            >
-          </td>
-          <td>
-            <a href="/desktop/models/?category=Desktop&amp;vendors=Acer">4</a>
-          </td>
-          <td>-</td>
-        </tr>
-
-        <tr>
-          <td>
-            <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Intel"
-              >Intel</a
-            >
-          </td>
-          <td>
-            <a href="/desktop/models/?category=Desktop&amp;vendors=Intel">3</a>
-          </td>
-          <td>-</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
     <p class="large">
