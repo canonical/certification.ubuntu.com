@@ -3,6 +3,8 @@
 <html lang="en">
   <head>
      <link rel="stylesheet" href="{{ versioned_static('css/styles.css') }}" />
+     <title>{% block title %}{% endblock %} | Ubuntu</title>
+     <link rel="shortcut icon" href="https://assets.ubuntu.com/v1/e5b92dd5-favicon.ico" type="image/x-icon">
   </head>
   <body>
     {% include "_header.html" %} {% block content %}{% endblock %} {% include
