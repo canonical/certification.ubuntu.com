@@ -11,3 +11,13 @@ def desktop():
     vendors = vendor_data.get("objects")
 
     return render_template("desktop.html", releases=releases, vendors=vendors)
+
+
+def server():
+    release_data = get_releases().json()
+    releases = release_data.get("objects")
+
+    vendor_data = get_vendors().json()
+    vendors = vendor_data.get("objects")
+
+    return render_template("server.html", releases=releases, vendors=vendors)

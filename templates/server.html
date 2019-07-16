@@ -1,0 +1,78 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li class="active">
+      <a href="/server/">
+        Ubuntu Server
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>Ubuntu Server certified hardware</h1>
+  </div>
+
+  <div class="main">
+    <div class="twelve-col cosy-fit">
+      <div class="three-col">
+        <form action="/server/models/" method="get" class="body-search">
+          <label for="id_query">Search</label>
+          <input id="id_query" type="text" name="query" />
+        </form>
+      </div>
+    </div>
+
+    <table class="catalog" id="certified-servers">
+      <thead>
+        <tr>
+          <th scope="col">Vendor</th>
+          {% for release in releases%}
+
+          <th scope="col">
+            <a
+              href="/server/models/?release={{
+                release.release
+              }}&amp;category=Server"
+              >{{ release.release }}</a
+            >
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for vendor in vendors %}
+        <tr>
+          {{
+            vendor
+          }}
+          <td><a href="/server/models/?vendors=Supermicro">Supermicro</a></td>
+
+          <td>
+            <a href="/server/models/?release=18.04%20LTS&amp;vendors=Supermicro"
+              >65</a
+            >
+          </td>
+
+          <td>
+            <a href="/server/models/?release=16.04%20LTS&amp;vendors=Supermicro"
+              >67</a
+            >
+          </td>
+
+          <td>
+            <a href="/server/models/?release=4.04%20LTS&amp;vendors=Supermicro"
+              >31</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
