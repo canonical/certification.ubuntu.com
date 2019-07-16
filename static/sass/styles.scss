@@ -8258,7 +8258,7 @@ a.icon:hover {
 @media only screen and (min-width: 984px) {
   .intro-left,
   .intro-right {
-    background: url(/static/images/image-intro-dots.svg) repeat-x right center;
+    background: url(https://assets.ubuntu.com/v1/61c99478-image-intro-dots.svg) repeat-x right center;
     background-size: 11px;
     flex-grow: 1;
     height: 150px;
@@ -8288,7 +8288,7 @@ a.icon:hover {
 }
 @media only screen and (min-width: 984px) {
   .ubuntu-intro__list:before {
-    background-image: url(/static/images/image-intro-dots.svg);
+    background-image: url(https://assets.ubuntu.com/v1/61c99478-image-intro-dots.svg);
     background-position: right center;
     background-repeat: repeat-x;
     background-size: 10px;
@@ -8348,7 +8348,7 @@ a.icon:hover {
 @media only screen and (min-width: 984px) {
   .intro-middle li a:before {
     display: block;
-    background: url(/static/images/image-intro-dots.svg) repeat-x right center;
+    background: url(https://assets.ubuntu.com/v1/61c99478-image-intro-dots.svg) repeat-x right center;
     background-size: 10px;
     content: "";
     position: absolute;
@@ -8356,7 +8356,7 @@ a.icon:hover {
   }
   .intro-middle li a:after {
     display: block;
-    background: url(/static/images/image-intro-dots.svg) repeat-x right center;
+    background: url(https://assets.ubuntu.com/v1/61c99478-image-intro-dots.svg) repeat-x right center;
     background-size: 10px;
     content: "";
     position: absolute;
@@ -8377,17 +8377,17 @@ a.icon:hover {
   }
 }
 .intro-middle li a.intro-desktop {
-  background-image: url(/static/images/icon-intro-desktop.svg);
+  background-image: url(https://assets.ubuntu.com/v1/cf8634c6-icon-intro-desktop.svg);
 }
 .intro-middle li a.intro-server {
-  background-image: url(/static/images/icon-intro-server.svg);
+  background-image: url(https://assets.ubuntu.com/v1/d519342f-icon-intro-server.svg);
 }
 .intro-middle li a.intro-iot {
-  background-image: url(/static/images/icon-intro-iot.svg);
+  background-image: url(https://assets.ubuntu.com/v1/c6a619d2-icon-intro-iot.svg);
   background-size: 120px;
 }
 .intro-middle li a.intro-soc {
-  background-image: url(/static/images/icon-intro-soc.svg);
+  background-image: url(https://assets.ubuntu.com/v1/6ec699c2-icon-intro-soc.svg);
 }
 @media only screen and (max-width: 768px) {
   .intro-middle li {

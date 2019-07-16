@@ -1,7 +1,236 @@
 {% extends '_layout.html' %}
 
+{% block title %}
+Certified hardware
+{% endblock %}
+
 {% block content %}
 
-<h1>Welcome to Canonical</h1>
+<div class="wrapper">
+  <div id="main-content" class="inner-wrapper">
+    <div class="row row-hero">
+      <h1>Ubuntu Certified hardware</h1>
+      <div class="twelve-col">
+        <div class="eight-col">
+          <p>
+            Ubuntu Certified hardware has passed our extensive testing and
+            review process to make sure Ubuntu runs well out of the box and it
+            is ready for your business. We work closely with OEMs to jointly
+            make Ubuntu available on a wide range of devices.
+          </p>
+        </div>
+      </div>
+      <div class="ubuntu-intro">
+        <div class="intro-left"></div>
+        <div class="intro-middle">
+          <ul class="ubuntu-intro__list no-bullets inline">
+            <li>
+              <a class="intro-desktop" href="#desktop" title="Desktop"
+                >Desktop</a
+              >
+            </li>
+            <li>
+              <a class="intro-server" href="#server" title="Server">Server</a>
+            </li>
+            <li>
+              <a class="intro-iot" href="#iot" title="IoT">IoT</a>
+            </li>
+            <li>
+              <a class="intro-soc" href="#server-soc" title="SoC">SoC</a>
+            </li>
+          </ul>
+        </div>
+        <div class="intro-right"></div>
+      </div>
+    </div>
+
+    <!-- Desktop -->
+    <div id="desktop" class="row row-overflow-left">
+      <div class="four-col column-overflow">
+        <img
+          alt=""
+          src="https://assets.ubuntu.com/v1/90eb1400-image-laptop.jpg"
+          width="390px"
+        />
+      </div>
+      <div class="seven-col">
+        <h2>Ubuntu Desktop certified hardware</h2>
+        <p>
+          Many of the world's biggest PC manufacturers certify their desktops
+          for Ubuntu, ensuring it always runs as smoothly as its millions of
+          users expect. Ubuntu is fast, reliable, packed with great software and
+          free of viruses. That’s why you’ll find Ubuntu preloaded on desktops
+          across government, education and enterprise, and in homes around the
+          world.
+        </p>
+        <p>
+          <a href="/desktop/"
+            >View all Ubuntu Desktop certified hardware&nbsp;›</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Certification -->
+    <div class="row row-overflow-right">
+      <div class="seven-col">
+        <h2>Become Ubuntu Certified!</h2>
+        <p>
+          Work with us to test that your hardware works fine with Ubuntu and
+          join the OEM market leaders in the list of Ubuntu Certified hardware.
+        </p>
+        <p>
+          <a
+            class="link-cta-ubuntu"
+            href="http://partners.ubuntu.com/contact-us"
+            >Learn more&nbsp;›</a
+          >
+        </p>
+      </div>
+      <div class="column-overflow">
+        <img
+          class="make-icon"
+          src="https://assets.ubuntu.com/v1/2fc93939-logo-dell.png"
+          alt="Dell"
+          width="60"
+          height="60"
+        />
+        <img
+          class="make-icon"
+          src="https://assets.ubuntu.com/v1/def7ccd3-logo-ibm.png"
+          alt="IBM"
+          width="60"
+          height="60"
+        />
+        <img
+          class="make-icon"
+          src="https://assets.ubuntu.com/v1/163fe62d-logo-hp.png"
+          alt="HP"
+          width="60"
+          height="60"
+        />
+        <img
+          class="make-icon"
+          src="https://assets.ubuntu.com/v1/12cb721c-logo-lenovo.png"
+          alt="Lenovo"
+          width="140"
+          height="60"
+        />
+        <img
+          class="make-icon"
+          src="https://assets.ubuntu.com/v1/3a1636ff-logo-penguin.png"
+          alt="Penguin Computing"
+          width="140"
+          height="66"
+        />
+      </div>
+    </div>
+
+    <!-- Server -->
+    <div id="server" class="row row-overflow-left">
+      <div class="four-col column-overflow">
+        <img
+          src="https://assets.ubuntu.com/v1/e83906b8-server.jpg"
+          alt=""
+          width="300px"
+        />
+      </div>
+      <div class="seven-col">
+        <h2>Ubuntu Server certified hardware</h2>
+        <p>
+          Using Ubuntu Server speeds up the ability to deploy physical
+          infrastructure on bare metal as it is in the cloud.
+        </p>
+        <p>
+          Deploying on certified servers saves you time in choosing and testing
+          what hardware you will use from a single server instance to the
+          largest scale-out data-center environments.
+        </p>
+        <p>
+          <a href="/server/"
+            >View all Ubuntu Server certified hardware&nbsp;›</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- IoT -->
+    <div id="iot" class="row row-overflow-right">
+      <div class="seven-col append-one">
+        <h2>IoT certified hardware</h2>
+        <p>
+          A number of IoT vendors rely on Ubuntu for their devices, from drones
+          and robots to edge gateways and development boards. They certify their
+          devices to offer users the guarantee of a stable, secure and optimised
+          Ubuntu, either pre-loaded or as build your own option.
+        </p>
+        <p>
+          Canonical's certification program offers you the peace of mind that
+          all your Internet of Things devices will remain secure and regularly
+          updated.
+        </p>
+        <p><a href="/iot/">View all IoT certified hardware&nbsp;›</a></p>
+      </div>
+      <div class="column-overflow">
+        <img
+          src="https://assets.ubuntu.com/v1/bc243cfd-dell-edge-gateway-5000-series.jpg"
+          alt="IoT"
+        />
+      </div>
+    </div>
+
+    <!-- SoC -->
+
+    <div id="server-soc" class="row row-overflow-right">
+      <div class="seven-col">
+        <h2>Ubuntu System on a Chip certified hardware</h2>
+        <p>
+          Low-power small-footprint System on a Chip (SoC) hardware are
+          re-defining the future of sustainable data centers. Ubuntu Core
+          delivers bullet-proof security, reliable updates and access to a rich
+          ecosystem on 32 and 64-bit ARM and X86 platforms, perfect to power the
+          Internet of Things
+        </p>
+        <p>
+          Canonical's certification program offers server manufacturers a
+          selection of SoCs officially supported and maintained in Ubuntu to
+          choose from for their products from servers to IoT.
+        </p>
+        <p><a href="/soc/">View all Ubuntu SoC certified hardware&nbsp;›</a></p>
+      </div>
+      <div class="column-overflow">
+        <img
+          src="https://assets.ubuntu.com/v1/b165f5aa-chip.jpg"
+          alt="System on a Chip"
+          width="350px"
+        />
+      </div>
+    </div>
+
+    <!-- Advantage -->
+    <div class="row row-overflow-left">
+      <div class="four-col column-overflow">
+        <img
+          class="image-overflow"
+          alt=""
+          src="https://assets.ubuntu.com/v1/105035d3-image-ubuntuadvantage.svg"
+          width="350px"
+        />
+      </div>
+      <div class="seven-col">
+        <h2>Need more peace of mind?</h2>
+        <p>
+          Ubuntu Advantage is the professional support package from Canonical,
+          available to provide support on certified hardware.
+        </p>
+        <p>
+          <a href="http://www.ubuntu.com/management/ubuntu-advantage"
+            >Learn more about Ubuntu Advantage&nbsp;›</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
