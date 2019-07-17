@@ -21,3 +21,11 @@ def server():
     vendors = vendor_data.get("objects")
 
     return render_template("server.html", releases=releases, vendors=vendors)
+
+
+def iot():
+    release_data = get_releases().json()
+    releases = release_data.get("objects")
+
+    return render_template("iot.html", releases=releases)
+

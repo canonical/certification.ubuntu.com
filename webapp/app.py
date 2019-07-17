@@ -6,7 +6,7 @@ from canonicalwebteam.flask_base.app import FlaskBase
 from canonicalwebteam.templatefinder import TemplateFinder
 
 
-from webapp.views import desktop, server
+from webapp.views import desktop, server, iot
 
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -27,3 +27,4 @@ app.add_url_rule("/", view_func=template_finder_view)
 app.add_url_rule("/<path:subpath>", view_func=template_finder_view)
 app.add_url_rule("/desktop", view_func=desktop)
 app.add_url_rule("/server", view_func=server)
+app.add_url_rule("/iot", view_func=iot)

@@ -1,0 +1,164 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu IoT certified hardware {%
+endblock %} {% block content %}
+
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li class="active">
+      <a href="/iot/">
+        Ubuntu IoT
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>IoT certified hardware</h1>
+  </div>
+
+  <div class="main">
+    <p class="large">
+      IoT devices certification guarantees that IoT devices are supported in
+      Ubuntu releases. Our engineering teams work with IoT device vendors to
+      enablement hardware, stabilize the core system, and verify specific
+      applications and workloads function optimally on the platform.
+    </p>
+    <p class="large">
+      Certified IoT Devices can be used by flashing a certified Ubuntu image or
+      can come pre-installed with Ubuntu.
+    </p>
+    <p class="large">
+      An IoT Device not on our list?
+      <a href="http://www.ubuntu.com/internet-of-things/contact-us">Contact</a>
+      us for more information on how the IoT Device Certification program can
+      help you.
+    </p>
+
+    <div class="twelve-col cosy-fit">
+      <div class="three-col">
+        <form action="/iot/models/" method="get" class="body-search">
+          <label for="id_query">Search</label>
+          <input id="id_query" type="text" name="query" />
+
+          <input
+            id="id_category_0"
+            name="category"
+            type="hidden"
+            value="Ubuntu Core"
+          />
+        </form>
+      </div>
+    </div>
+
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Make</th>
+          <th scope="col">Ubuntu Core</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Intel"
+              >Intel</a
+            >
+          </td>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Intel">6</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Dell"
+              >Dell</a
+            >
+          </td>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Dell">4</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors=Raspberry Pi Foundation"
+              >Raspberry Pi Foundation</a
+            >
+          </td>
+          <td>
+            <a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors=Raspberry Pi Foundation"
+              >4</a
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Qualcomm Inc"
+              >Qualcomm Inc</a
+            >
+          </td>
+          <td>
+            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Qualcomm Inc"
+              >1</a
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors=Mellanox Technologies"
+              >Mellanox Technologies</a
+            >
+          </td>
+          <td>
+            <a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors=Mellanox Technologies"
+              >1</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="large">
+      Each new release of Ubuntu brings exciting new hardware to Ubuntu users.
+      Take a look at certified hardware by release.
+    </p>
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Release</th>
+          <th scope="col">Ubuntu Core</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for release in releases %}
+        <tr>
+          <td>
+            <a
+              href="/iot/models/?release={{
+                release.release
+              }}&amp;category=Ubuntu Core"
+              >{{ release.release }}</a
+            >
+          </td>
+          <td>
+            <a
+              href="/iot/models/?release={{
+                release.release
+              }}&amp;category=Ubuntu Core"
+              >{{ release.smart_core }}</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
