@@ -29,3 +29,9 @@ def iot():
 
     return render_template("iot.html", releases=releases)
 
+
+def soc():
+    release_data = get_releases().json()
+    releases = release_data.get("objects")
+
+    return render_template("soc.html", releases=releases)
