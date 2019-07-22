@@ -20,6 +20,10 @@ def get_vendors():
     return get("certifiedmakes?format=json")
 
 
+def get_releases_by_vendor():
+    return get("vendorsummaries/server/?format=json")
+
+
 def get_desktops():
     return get("certifiedmakes/?format=json&desktops__gte=1")
 
@@ -37,5 +41,4 @@ def get_iot():
 
 
 def get_servers():
-    pass
-
+    return get_releases_by_vendor()

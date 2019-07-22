@@ -2,7 +2,6 @@ from flask import render_template
 
 from webapp.api import (
     get_releases,
-    get_vendors,
     get_socs,
     get_desktops,
     get_servers,
@@ -31,18 +30,19 @@ def desktop():
 
 
 def server():
-    release_data = get_releases().json()
-    releases = release_data.get("objects")
-    releases = [
-        release
-        for release in release_data.get("objects")
-        if release.get("server") != "0"
-    ]
-
     vendor_data = get_servers().json()
-    vendors = vendor_data.get("objects")
+    vendors = vendor_data.get("vendors")
 
-    return render_template("server.html", releases=releases, vendors=vendors)
+    all_releases = []
+
+    for vendor in vendors:
+        for release in vendor["releases"]:
+            if release not in all_releases:
+                all_releases.append(release)
+
+    return render_template(
+        "server.html", releases=all_releases, vendors=vendors
+    )
 
 
 def iot():
@@ -66,7 +66,6 @@ def soc():
         for release in release_data.get("objects")
         if release.get("soc") != "0"
     ]
-    print(releases)
 
     vendors_data = get_socs().json()
     vendors = vendors_data.get("objects")
