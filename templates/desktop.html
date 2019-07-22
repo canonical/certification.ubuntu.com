@@ -83,20 +83,26 @@
             >
           </td>
           <td>
+            {% if vendor.desktops == "0" %} - {% else %}
             <a
               href="/desktop/models/?category=Desktop&amp;vendors={{
                 vendor.make
               }}"
-              >{{ vendor.desktops }}</a
             >
+              {{ vendor.desktops }}
+            </a>
+            {% endif %}
           </td>
           <td>
+            {% if vendor.laptops == "0" %} - {% else %}
             <a
               href="/desktop/models/?category=Laptop&amp;vendors={{
                 vendor.make
               }}"
-              >{{ vendor.laptops }}</a
             >
+              {{ vendor.laptops }}
+            </a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
@@ -126,20 +132,26 @@
             >
           </td>
           <td>
+            {% if release.desktops== "0" %} - {% else %}
             <a
               href="/desktop/models/?release={{
                 release.release
               }}&amp;category=Desktop"
-              >{{ release.desktops }}</a
             >
+              {{ release.desktops }}
+            </a>
+            {% endif %}
           </td>
           <td>
+            {% if release.laptops == "0" %} - {% else %}
             <a
               href="/desktop/models/?release={{
                 release.release
               }}&amp;category=Laptop"
-              >{{ release.laptops }}</a
             >
+              {{ release.laptops }}
+            </a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
