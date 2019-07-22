@@ -48,35 +48,20 @@
         </tr>
       </thead>
       <tbody>
+        {% for vendor in vendors %}
         <tr>
           <td>
-            <a href="/soc/models/?vendors=Applied Micro Circuits Corp."
-              >Applied Micro Circuits Corp.</a
-            >
+            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+              vendor.make
+            }}</a>
           </td>
           <td>
-            <a href="/soc/models/?vendors=Applied Micro Circuits Corp.">3</a>
+            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+              vendor.soc
+            }}</a>
           </td>
         </tr>
-
-        <tr>
-          <td><a href="/soc/models/?vendors=HiSilicon">HiSilicon</a></td>
-          <td><a href="/soc/models/?vendors=HiSilicon">3</a></td>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/soc/models/?vendors=Cavium, Inc.">Cavium, Inc.</a>
-          </td>
-          <td><a href="/soc/models/?vendors=Cavium, Inc.">2</a></td>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/soc/models/?vendors=Qualcomm Inc">Qualcomm Inc</a>
-          </td>
-          <td><a href="/soc/models/?vendors=Qualcomm Inc">1</a></td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
     <p class="large">

@@ -58,70 +58,26 @@ endblock %} {% block content %}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Intel"
-              >Intel</a
-            >
-          </td>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Intel">6</a>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Dell"
-              >Dell</a
-            >
-          </td>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Dell">4</a>
-          </td>
-        </tr>
-
+        {% for vendor in vendors%}
         <tr>
           <td>
             <a
-              href="/iot/models/?category=Ubuntu Core&amp;vendors=Raspberry Pi Foundation"
-              >Raspberry Pi Foundation</a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors={{
+                vendor.make
+              }}"
+              >{{ vendor.make }}</a
             >
           </td>
           <td>
             <a
-              href="/iot/models/?category=Ubuntu Core&amp;vendors=Raspberry Pi Foundation"
-              >4</a
+              href="/iot/models/?category=Ubuntu Core&amp;vendors={{
+                vendor.make
+              }}"
+              >{{ vendor.smart_core }}</a
             >
           </td>
         </tr>
-
-        <tr>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Qualcomm Inc"
-              >Qualcomm Inc</a
-            >
-          </td>
-          <td>
-            <a href="/iot/models/?category=Ubuntu Core&amp;vendors=Qualcomm Inc"
-              >1</a
-            >
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <a
-              href="/iot/models/?category=Ubuntu Core&amp;vendors=Mellanox Technologies"
-              >Mellanox Technologies</a
-            >
-          </td>
-          <td>
-            <a
-              href="/iot/models/?category=Ubuntu Core&amp;vendors=Mellanox Technologies"
-              >1</a
-            >
-          </td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
     <p class="large">

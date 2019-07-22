@@ -1,14 +1,31 @@
 from flask import render_template
 
-from webapp.api import get_releases, get_vendors
+from webapp.api import (
+    get_releases,
+    get_vendors,
+    get_socs,
+    get_desktops,
+    get_servers,
+    get_iot,
+    get_laptops,
+)
 
 
 def desktop():
     release_data = get_releases().json()
-    releases = release_data.get("objects")
+    releases = [
+        release
+        for release in release_data.get("objects")
+        if release.get("desktops") != "0" or release.get("laptops") != "0"
+    ]
 
-    vendor_data = get_vendors().json()
-    vendors = vendor_data.get("objects")
+    desktop_data = get_desktops().json()
+    laptop_data = get_laptops().json()
+
+    vendors = {
+        entry["make"]: entry
+        for entry in desktop_data.get("objects") + laptop_data.get("objects")
+    }.values()
 
     return render_template("desktop.html", releases=releases, vendors=vendors)
 
@@ -16,8 +33,13 @@ def desktop():
 def server():
     release_data = get_releases().json()
     releases = release_data.get("objects")
+    releases = [
+        release
+        for release in release_data.get("objects")
+        if release.get("server") != "0"
+    ]
 
-    vendor_data = get_vendors().json()
+    vendor_data = get_servers().json()
     vendors = vendor_data.get("objects")
 
     return render_template("server.html", releases=releases, vendors=vendors)
@@ -25,13 +47,28 @@ def server():
 
 def iot():
     release_data = get_releases().json()
-    releases = release_data.get("objects")
+    releases = [
+        release
+        for release in release_data.get("objects")
+        if release.get("smart_core") != "0"
+    ]
 
-    return render_template("iot.html", releases=releases)
+    vendors_data = get_iot().json()
+    vendors = vendors_data.get("objects")
+
+    return render_template("iot.html", releases=releases, vendors=vendors)
 
 
 def soc():
     release_data = get_releases().json()
-    releases = release_data.get("objects")
+    releases = [
+        release
+        for release in release_data.get("objects")
+        if release.get("soc") != "0"
+    ]
+    print(releases)
 
-    return render_template("soc.html", releases=releases)
+    vendors_data = get_socs().json()
+    vendors = vendors_data.get("objects")
+
+    return render_template("soc.html", releases=releases, vendors=vendors)
