@@ -1,0 +1,73 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li class="active">
+      <a href="{{ url_for('certification.server') }}">
+        Ubuntu Server
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>Ubuntu Server certified hardware</h1>
+  </div>
+
+  <div class="main">
+    <div class="twelve-col cosy-fit">
+      <div class="three-col">
+        <form action="/server/models/" method="get" class="body-search">
+          <label for="id_query">Search</label>
+          <input id="id_query" type="text" name="query" />
+        </form>
+      </div>
+    </div>
+
+    <table class="catalog" id="certified-servers">
+      <thead>
+        <tr>
+          <th scope="col">Vendor</th>
+
+          {% for release in releases %}
+          <th scope="col">
+            <a
+              href="/server/models/?release={{ release }}&amp;category=Server"
+              >{{ release }}</a
+            >
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for vendor in vendors %}
+        <tr>
+          <td>
+            <a href="/server/models/?vendors={{ vendor['vendor'] }}">{{
+              vendor["vendor"]
+            }}</a>
+          </td>
+          {% for release in releases %}
+          <td>
+            {% if not vendor[release] %} - {% else %}
+            <a
+              href="/server/models/?release={{ release }}&amp;vendors={{
+                vendor['vendor']
+              }}
+              "
+            >
+              {{ vendor[release] }}
+            </a>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li class="active">
+      <a href="{{ url_for('certification.soc') }}">
+        Ubuntu SoC
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>Ubuntu System on a Chip certified hardware</h1>
+  </div>
+
+  <div class="main">
+    <p class="large">
+      Ubuntu SoC certification guarantees that SoC platforms are supported in
+      standard Ubuntu releases. Our engineering teams work with SoC vendors to
+      include the necessary hardware enablement code, stabilize the core system,
+      and verify specific applications and workloads function optimally on the
+      platform. Certification is annual and covers two Ubuntu releases for their
+      support duration.
+    </p>
+    <p class="large">
+      Certified SoC platforms can be used in OEM systems participating in Ubuntu
+      Certification programs. SoC not on our list?
+      <a href="http://www.ubuntu.com/about/contact-us/form">Contact us</a> for
+      more information on how the SoC Certification program can help you.
+    </p>
+
+    <div class="twelve-col cosy-fit">
+      <div class="three-col">
+        <form action="/soc/models/" method="get" class="body-search">
+          <label for="id_query">Search</label>
+          <input id="id_query" type="text" name="query" />
+        </form>
+      </div>
+    </div>
+
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Make</th>
+          <th scope="col">Server SoCs</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vendor in vendors %}
+        <tr>
+          <td>
+            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+              vendor.make
+            }}</a>
+          </td>
+          <td>
+            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+              vendor.soc
+            }}</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="large">
+      Each new release of Ubuntu brings exciting new hardware to Ubuntu users.
+      Take a look at certified hardware by release.
+    </p>
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th scope="col">Release</th>
+          <th scope="col">Server SoCs</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for release in releases %}
+        <tr>
+          <td>
+            <a href="/soc/models/?release={{ release.release }}">{{
+              release.release
+            }}</a>
+          </td>
+          <td>
+            <a href="/soc/models/?release={{ release.release }}">{{
+              release.soc
+            }}</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

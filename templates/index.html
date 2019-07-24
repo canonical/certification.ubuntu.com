@@ -1,9 +1,4 @@
-{% extends '_layout.html' %}
-
-{% block title %}
-Certified hardware
-{% endblock %}
-
+{% extends '_layout.html' %} {% block title %} Certified hardware {% endblock %}
 {% block content %}
 
 <div class="wrapper">
@@ -64,7 +59,7 @@ Certified hardware
           world.
         </p>
         <p>
-          <a href="/desktop/"
+          <a href="{{ url_for('certification.desktop') }}"
             >View all Ubuntu Desktop certified hardware&nbsp;›</a
           >
         </p>
@@ -147,7 +142,7 @@ Certified hardware
           largest scale-out data-center environments.
         </p>
         <p>
-          <a href="/server/"
+          <a href="{{ url_for('certification.server') }}"
             >View all Ubuntu Server certified hardware&nbsp;›</a
           >
         </p>
@@ -169,7 +164,11 @@ Certified hardware
           all your Internet of Things devices will remain secure and regularly
           updated.
         </p>
-        <p><a href="/iot/">View all IoT certified hardware&nbsp;›</a></p>
+        <p>
+          <a href="{{ url_for('certification.iot') }}"
+            >View all IoT certified hardware&nbsp;›</a
+          >
+        </p>
       </div>
       <div class="column-overflow">
         <img
@@ -196,7 +195,11 @@ Certified hardware
           selection of SoCs officially supported and maintained in Ubuntu to
           choose from for their products from servers to IoT.
         </p>
-        <p><a href="/soc/">View all Ubuntu SoC certified hardware&nbsp;›</a></p>
+        <p>
+          <a href="{{ url_for('certification.soc') }}"
+            >View all Ubuntu SoC certified hardware&nbsp;›</a
+          >
+        </p>
       </div>
       <div class="column-overflow">
         <img
