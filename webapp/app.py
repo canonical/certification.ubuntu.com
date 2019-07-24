@@ -26,6 +26,4 @@ template_finder_view = TemplateFinder.as_view("template_finder")
 app.add_url_rule("/", view_func=template_finder_view)
 app.add_url_rule("/<path:subpath>", view_func=template_finder_view)
 
-certification = certification_blueprint()
-
-app.register_blueprint(certification)
+app.register_blueprint(certification_blueprint)
