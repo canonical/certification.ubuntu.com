@@ -1,0 +1,963 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+{{search_params}}
+  <nav role="navigation" class="nav-secondary clearfix">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/desktop/">
+          Ubuntu Desktop
+        </a>
+      </li>
+      <li>&nbsp;›</li>
+
+      <li class="active">
+        <a href="/desktop/models/?category=Desktop&amp;vendors=Dell"
+          >Search Results</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <div class="row row-hero no-border">
+    <div class="container-inner title">
+      <h1>Ubuntu Desktop certified hardware</h1>
+    </div>
+
+    <div class="three-col">
+      <form id="sidebar-search" action="" method="get" class="body-search">
+        <fieldset>
+          <div id="search">
+            <input
+              id="id_query"
+              name="query"
+              value=""
+              maxlength="200"
+              type="text"
+            />
+          </div>
+
+          <div id="filter">
+            <p></p>
+            <ul id="id_category">
+              <li>
+                <label for="id_category_0"
+                  ><input
+                    checked="checked"
+                    id="id_category_0"
+                    name="category"
+                    value="Desktop"
+                    type="checkbox"
+                  />
+                  Desktops</label
+                >
+              </li>
+              <li>
+                <label for="id_category_1"
+                  ><input
+                    id="id_category_1"
+                    name="category"
+                    value="Laptop"
+                    type="checkbox"
+                  />
+                  Laptops</label
+                >
+              </li>
+            </ul>
+            <p></p>
+            <p>
+              <label for="id_level">Ubuntu image:</label>
+              <select id="id_level" name="level">
+                <option value="Any">Any</option>
+                <option value="Certified">Available from ubuntu.com</option>
+                <option value="Enabled">Pre-installed by manufacturer</option>
+              </select>
+            </p>
+            <p><label for="id_release_0">Release:</label></p>
+            <ul id="id_release">
+              <li>
+                <label for="id_release_0"
+                  ><input
+                    id="id_release_0"
+                    name="release"
+                    value="16.04 LTS"
+                    type="checkbox"
+                  />
+                  16.04 LTS</label
+                >
+              </li>
+              <li>
+                <label for="id_release_1"
+                  ><input
+                    id="id_release_1"
+                    name="release"
+                    value="Core 18"
+                    type="checkbox"
+                  />
+                  Core 18</label
+                >
+              </li>
+              <li>
+                <label for="id_release_2"
+                  ><input
+                    id="id_release_2"
+                    name="release"
+                    value="18.04 LTS"
+                    type="checkbox"
+                  />
+                  18.04 LTS</label
+                >
+              </li>
+            </ul>
+            <p></p>
+            <p><label for="id_vendors_0">Vendor:</label></p>
+            <ul id="id_vendors">
+              <li>
+                <label for="id_vendors_0"
+                  ><input
+                    checked="checked"
+                    id="id_vendors_0"
+                    name="vendors"
+                    value="Dell"
+                    type="checkbox"
+                  />
+                  Dell</label
+                >
+              </li>
+              <li>
+                <label for="id_vendors_1"
+                  ><input
+                    id="id_vendors_1"
+                    name="vendors"
+                    value="Lenovo"
+                    type="checkbox"
+                  />
+                  Lenovo</label
+                >
+              </li>
+              <li>
+                <label for="id_vendors_2"
+                  ><input
+                    id="id_vendors_2"
+                    name="vendors"
+                    value="HP"
+                    type="checkbox"
+                  />
+                  HP</label
+                >
+              </li>
+              <li>
+                <label for="id_vendors_3"
+                  ><input
+                    id="id_vendors_3"
+                    name="vendors"
+                    value="Intel"
+                    type="checkbox"
+                  />
+                  Intel</label
+                >
+              </li>
+              <li>
+                <label for="id_vendors_4"
+                  ><input
+                    id="id_vendors_4"
+                    name="vendors"
+                    value="Acer"
+                    type="checkbox"
+                  />
+                  Acer</label
+                >
+              </li>
+            </ul>
+            <p></p>
+
+            <input value="Update" type="submit" />
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="main">
+      <div class="nine-col  last-col">
+        <p class="large">
+          Canonical works closely with OEMs to certify Ubuntu on a range of
+          their hardware.
+        </p>
+        <p>
+          The following are all certified. More and more devices are being added
+          with each release, so don't forget to check this page regularly.
+        </p>
+
+        <div id="models" class="models">
+          <div class="pagination">
+            <div class="three-col">
+              <p>115 results</p>
+            </div>
+            <div class="six-col right last-col">
+              <p class="right">
+                You are viewing page&nbsp;
+
+                <span class="current"><strong>1</strong></span>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=2"> 2</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=3"> 3</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=4"> 4</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=5"> 5</a>
+              </p>
+            </div>
+          </div>
+
+          <ul class="model-list">
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201612-25299/">ChengMing 3977</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201612-25300/">ChengMing 3977</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Pentium(R) CPU G3930 @ 2.90GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201612-25301/">ChengMing 3978</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Pentium(R) CPU G4560 @ 3.50GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201811-26620/">ChengMing 3980</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i3-9100 CPU @ 3.60GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Intel 8th Gen Core Processor Gaussian Mixture Model"
+                >
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201604-21847/">Embedded Box PC 3000</a>
+                Desktop
+              </p>
+              <ul
+                class="device_summary closed"
+                style="height: 0px; opacity: 0;"
+              >
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Atom(TM) CPU  E3827  @ 1.74GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Intel I210 Gigabit Network Connection"
+                >
+                  Intel
+                </li>
+
+                <li class="device video" title="Intel ValleyView Gen7">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201604-21849/">Embedded Box PC 5000</a>
+                Desktop
+              </p>
+              <ul
+                class="device_summary closed"
+                style="height: 0px; opacity: 0;"
+              >
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-6440EQ CPU @ 2.70GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Intel I210 Gigabit Network Connection"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Intel Ethernet Connection (2) I219-V"
+                >
+                  Intel
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 530">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201605-22336/">Embedded Box PC 5000</a>
+                Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Celeron(R) CPU G3900E @ 2.40GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Intel I210 Gigabit Network Connection"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Intel Ethernet Connection (2) I219-V"
+                >
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201606-22459/">Inspiron 20 - 3064</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="nVidia GM108M [GeForce 920MX]">
+                  nVidia
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 620">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201606-22457/">Inspiron 22-3264</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="nVidia GM108M [GeForce 920MX]">
+                  nVidia
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 620">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201606-22458/">Inspiron 22-3264</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i3-7100U CPU @ 2.40GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 620">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201703-25463/">Inspiron 24 5475</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Advanced Micro Devices AMD A10-9700E RADEON R7, 10 COMPUTE CORES 4C+6G"
+                >
+                  AMD
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Advanced Micro Devices, Inc. [AMD/ATI] Carrizo"
+                >
+                  AMD
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201703-25464/">Inspiron 24 5475</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Advanced Micro Devices AMD A12-9800E RADEON R7, 12 COMPUTE CORES 4C+8G"
+                >
+                  AMD
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Polaris11]"
+                >
+                  AMD
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201608-25032/">Inspiron 24-3460</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Pentium(R) CPU N4200 @ 1.10GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Intel Atom/Celeron/Pentium Processor N4200/N3350/E3900 Series Integrated Graphics Controller"
+                >
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201606-22460/">Inspiron 24-3464</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="nVidia GM108M [GeForce 920MX]">
+                  nVidia
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 620">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201703-25465/">Inspiron 27 7475</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Advanced Micro Devices Unknown"
+                >
+                  AMD
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Polaris11]"
+                >
+                  AMD
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201703-25466/">Inspiron 27 7475</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Advanced Micro Devices AMD Ryzen 7 1700 Eight-Core Processor"
+                >
+                  AMD
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere [Radeon RX 480]"
+                >
+                  AMD
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201608-25035/">Inspiron 3060</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Celeron(R) CPU N3450 @ 1.10GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201610-25169/">Inspiron 3268</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel HD Graphics 630">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201710-25890/">Inspiron 3275 AIO</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Advanced Micro Devices AMD A6-9220 RADEON R4, 5 COMPUTE CORES 2C+3G"
+                >
+                  AMD
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Advanced Micro Devices, Inc. [AMD/ATI] Stoney [Radeon R2/R3/R4/R5 Graphics]"
+                >
+                  AMD
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201710-25892/">Inspiron 3277 AIO</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Pentium(R) CPU 4415U @ 2.30GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel 8086:5906">Intel</li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell
+                <a href="/hardware/201808-26365/">Inspiron 3280 AIO</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li
+                  class="device video"
+                  title="Intel UHD Graphics 620 (Whiskey Lake)"
+                >
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201608-25028/">Inspiron 3460</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Celeron(R) CPU N3450 @ 1.10GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201711-25957/">Inspiron 3470</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Pentium(R) Gold G5400 CPU @ 3.70GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel UHD Graphics 610">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201811-26617/">Inspiron 3470</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Celeron(R) G4930 CPU @ 3.20GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel UHD Graphics 610">
+                  Intel
+                </li>
+              </ul>
+            </li>
+
+            <li class="model enabled">
+              <p>
+                Dell <a href="/hardware/201711-25969/">Inspiron 3472</a> Desktop
+              </p>
+              <ul class="device_summary closed" style="height: 0px;">
+                <li class="device level">Pre-installed by manufacturer</li>
+
+                <li
+                  class="device processor"
+                  title="Intel Intel(R) Celeron(R) J4005 CPU @ 2.00GHz"
+                >
+                  Intel
+                </li>
+
+                <li
+                  class="device network"
+                  title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller"
+                >
+                  Realtek Semiconductor Co., Ltd.
+                </li>
+
+                <li class="device video" title="Intel 8086:3185">Intel</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="pagination">
+            <div class="three-col">
+              <p>115 results</p>
+            </div>
+            <div class="six-col right last-col">
+              <p class="right">
+                You are viewing page&nbsp;
+
+                <span class="current"><strong>1</strong></span>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=2"> 2</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=3"> 3</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=4"> 4</a>
+
+                <a href="?category=Desktop&amp;vendors=Dell&amp;page=5"> 5</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
