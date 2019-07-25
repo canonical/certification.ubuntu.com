@@ -109,6 +109,20 @@ def desktop():
 
     return render_template("desktop.html", releases=releases, vendors=vendors)
 
+@certification_blueprint.route("/desktop/models")
+def desktop_models():
+    params = {
+        "query": request.args.get("query"),
+        "category": request.args.getlist("category"),
+        "vendors": request.args.getlist("vendors"),
+        "release": request.args.getlist("release"),
+        "level": request.args.get("level"),
+    }
+
+    return render_template(
+        "search.html", search_params=params, search_fields={}
+    )
+
 
 @certification_blueprint.route("/server")
 def server():
