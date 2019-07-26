@@ -41,7 +41,9 @@
         If there is an issue with the information for this system, please
         <a
           target="_blank"
-          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the Dell ChengMing 3977 - phoenix KBL"
+          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{
+            details.vendor
+          }} {{ details.name }}"
           >let us know</a
         >.
       </p>
@@ -133,267 +135,26 @@
 
         <table class="definitions">
           <tbody>
+            {% for category, devices in details.hardware_details.items() %}
             <tr>
-              <td class="title">Audio</td>
+              <td style="text-transform: capitalize;" class="title">
+                {{ category }}
+              </td>
               <td class="details">
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa170/"
-                    >Intel Sunrise Point-H HD Audio
-                  </a>
-                </p>
-
+                {% for device in devices %}
                 <p>
                   <a
-                    href="/catalog/component/sound/4103/sound%3ASunrisePoint-HHDAudio/"
-                    >Intel Sunrise Point-H HD Audio
+                    href="/catalog/component/{{ device.bus }}/{{
+                      device.identifier
+                    }}/"
+                    >{{ device.name }}
                   </a>
                 </p>
+
+                {% endfor %}
               </td>
             </tr>
-
-            <tr>
-              <td class="title">BIOS</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/dmi/4755/dmi%3A0.5.3/"
-                    >Dell 0.5.3
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Board</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/dmi/4755/dmi%3AUnknown/"
-                    >Dell Unknown
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Chassis</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/dmi/4755/dmi%3ADesktop/"
-                    >Dell Desktop
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Disk</td>
-              <td class="details">
-                <p>
-                  <a
-                    href="/catalog/component/scsi/4932/scsi%3AST500DM002-1SB10A/"
-                    >Aquantia Corp. ST500DM002-1SB10A
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Efi</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/dmi/86/dmi%3AEFIv2.40/"
-                    >American Megatrends Inc. EFI v2.40
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Mouse</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/usb/2024/046d%3Ac534/"
-                    >Logitech, Inc. Unifying Receiver
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Network</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/pci/10ec%3A8168/"
-                    >Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI
-                    Express Gigabit Ethernet Controller
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Processor</td>
-              <td class="details">
-                <p>
-                  <a
-                    href="/catalog/component/dmi/4103/dmi%3AIntel%28R%29Core%28TM%29i5-7500CPU%403.40GHz/"
-                    >Intel Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">System</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/dmi/4755/dmi%3AChengMing3977/"
-                    >Dell ChengMing 3977
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Usb</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa12f/"
-                    >Intel Sunrise Point-H USB 3.0 xHCI Controller
-                  </a>
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="title">Other</td>
-              <td class="details">
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3ADellWMIhotkeys/"
-                    >Aquantia Corp. Dell WMI hotkeys
-                  </a>
-                </p>
-
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3AHDAIntelPCHHDMI/DP%2Cpcm%3D3/"
-                    >Aquantia Corp. HDA Intel PCH HDMI/DP,pcm=3
-                  </a>
-                </p>
-
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3AHDAIntelPCHHDMI/DP%2Cpcm%3D7/"
-                    >Aquantia Corp. HDA Intel PCH HDMI/DP,pcm=7
-                  </a>
-                </p>
-
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3AHDAIntelPCHHDMI/DP%2Cpcm%3D8/"
-                    >Aquantia Corp. HDA Intel PCH HDMI/DP,pcm=8
-                  </a>
-                </p>
-
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3AHDAIntelPCHHeadphoneMic/"
-                    >Aquantia Corp. HDA Intel PCH Headphone Mic
-                  </a>
-                </p>
-
-                <p>
-                  <a
-                    href="/catalog/component/input/4932/input%3AHDAIntelPCHLineOut/"
-                    >Aquantia Corp. HDA Intel PCH Line Out
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/input/4932/input%3APowerButton/"
-                    >Aquantia Corp. Power Button
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/input/4932/input%3ASleepButton/"
-                    >Aquantia Corp. Sleep Button
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/input/4932/input%3AVideoBus/"
-                    >Aquantia Corp. Video Bus
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/104c%3A8240/"
-                    >Texas Instruments XIO2001 PCI Express-to-PCI Bridge
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/1fd4%3A1999/"
-                    >SUNIX Co., Ltd. Multiport serial controller
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3A1901/"
-                    >Intel Sky Lake PCIe Controller (x16)
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa102/"
-                    >Intel Sunrise Point-H SATA controller [AHCI mode]
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa115/"
-                    >Intel Sunrise Point-H PCI Express Root Port #6
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa121/"
-                    >Intel Sunrise Point-H PMC
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa123/"
-                    >Intel Sunrise Point-H SMBus
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa131/"
-                    >Intel Sunrise Point-H Thermal subsystem
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/pci/8086%3Aa13a/"
-                    >Intel Sunrise Point-H CSME HECI #1
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/usb/4034/1d6b%3A0002/"
-                    >Linux Foundation 2.0 root hub
-                  </a>
-                </p>
-
-                <p>
-                  <a href="/catalog/component/usb/4034/1d6b%3A0003/"
-                    >Linux Foundation 3.0 root hub
-                  </a>
-                </p>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

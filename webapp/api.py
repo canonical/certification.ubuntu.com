@@ -59,4 +59,10 @@ def get_device_information_by_hardware_id(id):
         .get("objects")
     )
 
+    model_info["release_details"] = (
+        get(f"certifiedmodeldetails/?format=json&canonical_id={id}")
+        .json()
+        .get("objects")
+    )
+
     return model_info

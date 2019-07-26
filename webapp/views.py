@@ -19,30 +19,33 @@ certification_blueprint = Blueprint(
 )
 
 
-@certification_blueprint.route("/hardware/<hardwareid>")
-def hardware(hardwareid):
-    modelinfo_data = get_device_information_by_hardware_id(hardwareid)
+@certification_blueprint.route("/hardware/<hardware_id>")
+def hardware(hardware_id):
+    modelinfo_data = get_device_information_by_hardware_id(hardware_id)
 
-    hardware_details = {"categories": {}}
+    hardware_details = {}
     for component in modelinfo_data.get("hardware_details"):
         category = component.get("category")
-        if category not in hardware_details.get("categories"):
-            hardware_details.get("categories")[category] = []
+        if category != "BIOS":
+            category = category.lower()
+        if category not in hardware_details:
+            hardware_details[category] = []
 
         hardware_info = {
-            "name": component.get("name"),
+            "name": f"{component.get('make')} {component.get('name')}",
             "bus": component.get("bus"),
             "identifier": component.get("identifier"),
         }
 
-        hardware_details.get("categories")[category].append(hardware_info)
+        hardware_details[category].append(hardware_info)
 
     details = {
-        "id": hardwareid,
+        "id": hardware_id,
         "name": modelinfo_data.get("model"),
         "vendor": modelinfo_data.get("make"),
         "major_release": modelinfo_data.get("major_release"),
         "hardware_details": hardware_details,
+        "release_details": modelinfo_data.get("release_details"),
     }
 
     return render_template("hardware.html", details=details)
