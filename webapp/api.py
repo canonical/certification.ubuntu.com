@@ -42,3 +42,21 @@ def get_iot():
 
 def get_servers():
     return get_releases_by_vendor()
+
+
+def get_device_information_by_hardware_id(id):
+    model_info = (
+        get(f"certifiedmodels/?format=json&canonical_id={id}")
+        .json()
+        .get("objects")[0]
+    )
+    model_info["hardware_details"] = (
+        get(
+            "certifiedmodeldevices/"
+            f"?format=json&canonical_id={id}&limit=1000"
+        )
+        .json()
+        .get("objects")
+    )
+
+    return model_info

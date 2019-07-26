@@ -7,6 +7,7 @@ from webapp.api import (
     get_servers,
     get_iot,
     get_laptops,
+    get_device_information_by_hardware_id,
 )
 
 
@@ -16,6 +17,35 @@ certification_blueprint = Blueprint(
     template_folder="/templates",
     static_folder="/static",
 )
+
+
+@certification_blueprint.route("/hardware/<hardwareid>")
+def hardware(hardwareid):
+    modelinfo_data = get_device_information_by_hardware_id(hardwareid)
+
+    hardware_details = {"categories": {}}
+    for component in modelinfo_data.get("hardware_details"):
+        category = component.get("category")
+        if category not in hardware_details.get("categories"):
+            hardware_details.get("categories")[category] = []
+
+        hardware_info = {
+            "name": component.get("name"),
+            "bus": component.get("bus"),
+            "identifier": component.get("identifier"),
+        }
+
+        hardware_details.get("categories")[category].append(hardware_info)
+
+    details = {
+        "id": hardwareid,
+        "name": modelinfo_data.get("model"),
+        "vendor": modelinfo_data.get("make"),
+        "major_release": modelinfo_data.get("major_release"),
+        "hardware_details": hardware_details,
+    }
+
+    return render_template("hardware.html", details=details)
 
 
 @certification_blueprint.route("/desktop")
