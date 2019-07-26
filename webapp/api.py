@@ -66,3 +66,26 @@ def get_device_information_by_hardware_id(id):
     )
 
     return model_info
+
+
+def search_for_desktops(
+    query="", categories=[], vendors=[], releases=[], level=""
+):
+    base = f"certifiedmodels/?format=json"
+    if query:
+        base += "&query=" + query
+    if categories:
+        base += "&category="
+        for category in categories:
+            base += category
+    if vendors:
+        base += "&vendors="
+        for vendor in vendors:
+            base += vendor
+    if releases:
+        base += "&release="
+        for release in releases:
+            base += release
+    if level:
+        base += "&level=" + level
+    return get(base)

@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request
 
 from webapp.api import (
     get_releases,
@@ -8,6 +8,7 @@ from webapp.api import (
     get_iot,
     get_laptops,
     get_device_information_by_hardware_id,
+    search_for_desktops,
 )
 
 
@@ -109,8 +110,20 @@ def desktop():
 
     return render_template("desktop.html", releases=releases, vendors=vendors)
 
+
 @certification_blueprint.route("/desktop/models")
 def desktop_models():
+    desktop_data = get_desktops().json()
+    makes = []
+    for dictionary in desktop_data["objects"]:
+        if dictionary["desktops"] != "0":
+            makes.append(dictionary["make"])
+    release_data = get_releases().json()
+    releaseList = []
+    for dictionary in release_data["objects"]:
+        if dictionary["desktops"] != "0":
+            releaseList.append(dictionary["release"])
+    print(release_data)
     params = {
         "query": request.args.get("query"),
         "category": request.args.getlist("category"),
@@ -118,9 +131,19 @@ def desktop_models():
         "release": request.args.getlist("release"),
         "level": request.args.get("level"),
     }
+    results = search_for_desktops(
+        params["query"],
+        params["category"],
+        params["vendors"],
+        params["release"],
+        params["level"],
+    )
 
     return render_template(
-        "search.html", search_params=params, search_fields={}
+        "search.html",
+        search_params=params,
+        search_fields={"vendors": makes, "releases": releaseList},
+        results=results,
     )
 
 
