@@ -39,13 +39,39 @@ def hardware(hardware_id):
 
         hardware_details[category].append(hardware_info)
 
+    release_details = {"components": {}}
+    for release in modelinfo_data.get("release_details"):
+        for key, values in release.items():
+            if key in ["video", "processor", "network", "wireless"] and values:
+                # TODO: For each device => get the correct BUS and IDentifier
+                devices = []
+                for name in values:
+                    # Device cant be in releasedetails but not hardwaredetails.
+                    # Would be an API error, since its the same machine
+                    device = next(
+                        (
+                            x
+                            for x in hardware_details[key]
+                            if name in x["name"]
+                        ),
+                        None,
+                    )
+                    devices.append(device)
+
+                if key in release_details["components"]:
+                    release_details["components"][key] = (
+                        release_details["components"][key] + devices
+                    )
+                else:
+                    release_details["components"][key] = devices
+
     details = {
         "id": hardware_id,
         "name": modelinfo_data.get("model"),
         "vendor": modelinfo_data.get("make"),
         "major_release": modelinfo_data.get("major_release"),
         "hardware_details": hardware_details,
-        "release_details": modelinfo_data.get("release_details"),
+        "release_details": release_details,
     }
 
     return render_template("hardware.html", details=details)

@@ -1,7 +1,7 @@
 {% extends '_layout.html' %} {% block title%} Ubuntu Desktop certified hardware
 {% endblock %} {% block content %}
 
-{{ details }}
+{{ details.release_details }}
 
 <nav role="navigation" class="nav-secondary clearfix">
   <ul class="breadcrumb">
@@ -13,10 +13,8 @@
     <li>&nbsp;›</li>
 
     <li>
-      <a
-        href="https://certification.ubuntu.com/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Dell"
-        >Search Results</a
-      >
+      <a href="https://certification.ubuntu.com/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Dell">Search
+        Results</a>
     </li>
     <li>&nbsp;›</li>
 
@@ -39,13 +37,9 @@
       <h4>Feedback</h4>
       <p>
         If there is an issue with the information for this system, please
-        <a
-          target="_blank"
-          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{
+        <a target="_blank" href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{
             details.vendor
-          }} {{ details.name }}"
-          >let us know</a
-        >.
+          }} {{ details.name }}">let us know</a>.
       </p>
     </div>
   </div>
@@ -105,29 +99,22 @@
 
         <table class="definitions">
           <tbody>
+            {% for category, devices in details.release_details.components.items() %}
             <tr>
-              <td class="title">Processor</td>
+              <td style="text-transform: capitalize;" class="title">{{category}}</td>
               <td class="details">
+                {% for device in devices %}
                 <p>
-                  <a
-                    href="/catalog/component/dmi/4103/dmi%3AIntel%28R%29Core%28TM%29i5-7500CPU%403.40GHz/"
-                    >Intel Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+                  <a href="/catalog/component/{{ device.bus }}/{{
+                      device.identifier
+                    }}/">{{ device.name }}
+                  </a>
                   </a>
                 </p>
+                {% endfor %}
               </td>
             </tr>
-
-            <tr>
-              <td class="title">Ethernet</td>
-              <td class="details">
-                <p>
-                  <a href="/catalog/component/pci/10ec%3A8168/"
-                    >Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI
-                    Express Gigabit Ethernet Controller
-                  </a>
-                </p>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
 
@@ -143,11 +130,9 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a
-                    href="/catalog/component/{{ device.bus }}/{{
+                  <a href="/catalog/component/{{ device.bus }}/{{
                       device.identifier
-                    }}/"
-                    >{{ device.name }}
+                    }}/">{{ device.name }}
                   </a>
                 </p>
 
