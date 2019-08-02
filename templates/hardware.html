@@ -70,17 +70,18 @@
         </ol>
 
         <div id="releases">
+          {% for release in details.release_details.releases %}
           <div class="release box">
             <h3 class="enabled">
-              Ubuntu 16.04 LTS 64-bit
+              {{ release.name }}
             </h3>
 
             <p class="availability">Pre-installed by manufacturer</p>
 
             <h4 id="testing-details">Testing details</h4>
             <p>
-              This system was tested with 16.04 LTS, running the
-              4.4.0-36-generic kernel.
+              This system was tested with {{ release.version }}, running the
+              {{ release.kernel }} kernel.
             </p>
             <p></p>
             <h4>Certification notes</h4>
@@ -89,10 +90,11 @@
 
             <dl id="bios-list">
               <dt>BIOS</dt>
-              <dd>Dell: 0.5.3 (UEFI)</dd>
+              <dd>{{ release.bios }}</dd>
             </dl>
           </div>
         </div>
+        {% endfor %}
 
         <h2>Hardware summary</h2>
         <p>This system was tested with these key components:</p>

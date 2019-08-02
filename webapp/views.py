@@ -39,11 +39,24 @@ def hardware(hardware_id):
 
         hardware_details[category].append(hardware_info)
 
-    release_details = {"components": {}}
+    release_details = {"components": {}, "releases": []}
     for release in modelinfo_data.get("release_details"):
+        release_version = release["certified_release"]
+        release_name = (
+            "Ubuntu "
+            f"{release_version} "
+            f"{ '64 Bit' if release['architecture'] == 'amd64' else '32 Bit'}"
+        )
+        release_info = {
+            "name": release_name,
+            "kernel": release["kernel_version"],
+            "bios": release["bios"],
+            "release_version": release_version,
+        }
+        release_details["releases"].append(release_info)
+
         for key, values in release.items():
             if key in ["video", "processor", "network", "wireless"] and values:
-                # TODO: For each device => get the correct BUS and IDentifier
                 devices = []
                 for name in values:
                     # Device cant be in releasedetails but not hardwaredetails.
