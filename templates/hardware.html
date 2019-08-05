@@ -1,0 +1,167 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Desktop certified hardware
+{% endblock %} {% block content %}
+
+<nav role="navigation" class="nav-secondary clearfix">
+  <ul class="breadcrumb">
+    <li>
+      <a href="/desktop/">
+        Ubuntu Desktop
+      </a>
+    </li>
+    <li>&nbsp;›</li>
+
+    <li>
+      <a href="https://certification.ubuntu.com/desktop/models/?category=Desktop">
+        Search Results
+      </a>
+    </li>
+    <li>&nbsp;›</li>
+
+    <li class="third-level">Detail</li>
+  </ul>
+</nav>
+
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>
+      Ubuntu on {{ details.vendor }}<span class="grey"> {{ details.name }}</span>
+    </h1>
+  </div>
+
+  <div class="three-col">
+    <form id="sidebar-search" action="" method="get" class="body-search"></form>
+
+    <div id="ubuntu-feedback">
+      <h4>Feedback</h4>
+      <p>
+        If there is an issue with the information for this system, please
+        <a target="_blank"
+          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{details.vendor}} {{ details.name }}">
+          let us know
+        </a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="nine-col  last-col device">
+      <div class="row row-hero" id="hardware-detail">
+        <p class="large">
+          The <strong>{{ details.vendor }} {{ details.name }}</strong> desktop
+          with the components described below has been awarded the status of
+          certified pre-install for Ubuntu.
+        </p>
+
+        <h3><strong>Please note that for pre-installed systems:</strong></h3>
+        <ol>
+          <li>
+            The system is available in some regions with a special image of
+            Ubuntu pre-installed by the manufacturer. It takes advantage of the
+            hardware features for this system and may include additional
+            software. You should check when buying the system whether this is an
+            option.
+          </li>
+          <li>
+            Standard images of Ubuntu may not work at all on the system or may
+            not work well, though Canonical and computer manufacturers will try
+            to certify the system with future standard releases of Ubuntu.
+          </li>
+        </ol>
+
+        <div id="releases">
+          {% for release in details.release_details.releases %}
+          <div class="release box">
+            <h3 class="enabled">
+              {{ release.name }}
+            </h3>
+
+            <p class="availability">Pre-installed by manufacturer</p>
+
+            <h4 id="testing-details">Testing details</h4>
+            <p>
+              This system was tested with {{ release.version }}, running the
+              {{ release.kernel }} kernel.
+            </p>
+            <p></p>
+            <h4>Certification notes</h4>
+
+            <p>There are no notes for this release.</p>
+
+            <dl id="bios-list">
+              <dt>BIOS</dt>
+              <dd>{{ release.bios }}</dd>
+            </dl>
+          </div>
+        </div>
+        {% endfor %}
+
+        <h2>Hardware summary</h2>
+        <p>This system was tested with these key components:</p>
+
+        <table class="definitions">
+          <tbody>
+            {% for category, devices in details.release_details.components.items() %}
+            <tr>
+              <td style="text-transform: capitalize;" class="title">{{category}}</td>
+              <td class="details">
+                {% for device in devices %}
+                <p>
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
+                  </a>
+                  </a>
+                </p>
+                {% endfor %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h2>Hardware details</h2>
+
+        <table class="definitions">
+          <tbody>
+            {% for category, devices in details.hardware_details.items() %}
+            {% if category != "other" %}
+            <tr>
+              <td style="text-transform: capitalize;" class="title">
+                {{ category }}
+              </td>
+              <td class="details">
+                {% for device in devices %}
+                <p>
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
+                  </a>
+                </p>
+
+                {% endfor %}
+              </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <tr>
+              <td style="text-transform: capitalize;" class="title">
+                other
+              </td>
+              <td class="details">
+                {% for device in details.hardware_details["other"] %}
+                <p>
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
+                  </a>
+                </p>
+
+                {% endfor %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>
+
+{% endblock %}

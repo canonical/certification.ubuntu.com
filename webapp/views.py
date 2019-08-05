@@ -7,6 +7,7 @@ from webapp.api import (
     get_servers,
     get_iot,
     get_laptops,
+    get_device_information_by_hardware_id,
 )
 
 
@@ -16,6 +17,77 @@ certification_blueprint = Blueprint(
     template_folder="/templates",
     static_folder="/static",
 )
+
+
+@certification_blueprint.route("/hardware/<hardware_id>")
+def hardware(hardware_id):
+    modelinfo_data = get_device_information_by_hardware_id(hardware_id)
+
+    hardware_details = {}
+    for component in modelinfo_data.get("hardware_details"):
+        category = component.get("category")
+        if category != "BIOS":
+            category = category.lower()
+        if category not in hardware_details:
+            hardware_details[category] = []
+
+        hardware_info = {
+            "name": f"{component.get('make')} {component.get('name')}",
+            "bus": component.get("bus"),
+            "identifier": component.get("identifier"),
+        }
+
+        hardware_details[category].append(hardware_info)
+
+    release_details = {"components": {}, "releases": []}
+    for release in modelinfo_data.get("release_details"):
+        release_version = release["certified_release"]
+        release_name = (
+            "Ubuntu "
+            f"{release_version} "
+            f"{ '64 Bit' if release['architecture'] == 'amd64' else '32 Bit'}"
+        )
+        release_info = {
+            "name": release_name,
+            "kernel": release["kernel_version"],
+            "bios": release["bios"],
+            "release_version": release_version,
+        }
+        release_details["releases"].append(release_info)
+
+        for key, values in release.items():
+            if key in ["video", "processor", "network", "wireless"] and values:
+                devices = []
+                for name in values:
+                    # Device cant be in releasedetails but not hardwaredetails.
+                    # Would be an API error, since its the same machine
+                    device = next(
+                        (
+                            x
+                            for x in hardware_details[key]
+                            if name in x["name"]
+                        ),
+                        None,
+                    )
+                    devices.append(device)
+
+                if key in release_details["components"]:
+                    release_details["components"][key] = (
+                        release_details["components"][key] + devices
+                    )
+                else:
+                    release_details["components"][key] = devices
+
+    details = {
+        "id": hardware_id,
+        "name": modelinfo_data.get("model"),
+        "vendor": modelinfo_data.get("make"),
+        "major_release": modelinfo_data.get("major_release"),
+        "hardware_details": hardware_details,
+        "release_details": release_details,
+    }
+
+    return render_template("hardware.html", details=details)
 
 
 @certification_blueprint.route("/desktop")
