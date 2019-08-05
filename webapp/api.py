@@ -68,16 +68,24 @@ def get_device_information_by_hardware_id(id):
     return model_info
 
 
-def search_for_desktops(
-    query="", categories=[], vendors=[], releases=[], level=""
+def search_devices(
+    query="",
+    categories=[],
+    vendors=[],
+    releases=[],
+    level="",
+    per_page=25,
+    page=1,
 ):
-    base = f"certifiedmodels/?format=json"
+    base = (
+        f"certifiedmodels/?format=json"
+        f"&limit={per_page}&offset={(page - 1) * per_page}"
+    )
     if query:
         base += "&query=" + query
     if categories:
-        base += "&category="
         for category in categories:
-            base += category
+            base += "&category=" + category
     if vendors:
         base += "&vendors="
         for vendor in vendors:
@@ -88,4 +96,8 @@ def search_for_desktops(
             base += release
     if level:
         base += "&level=" + level
-    return get(base)
+    response = get(base).json()
+    devices = response["objects"]
+    total_amount_of_devices = response["meta"]["total_count"]
+
+    return {"devices": devices, "total": total_amount_of_devices}
