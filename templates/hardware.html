@@ -1,8 +1,6 @@
 {% extends '_layout.html' %} {% block title%} Ubuntu Desktop certified hardware
 {% endblock %} {% block content %}
 
-{{ details.release_details }}
-
 <nav role="navigation" class="nav-secondary clearfix">
   <ul class="breadcrumb">
     <li>
@@ -13,8 +11,9 @@
     <li>&nbsp;›</li>
 
     <li>
-      <a href="https://certification.ubuntu.com/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors=Dell">Search
-        Results</a>
+      <a href="https://certification.ubuntu.com/desktop/models/?category=Desktop">
+        Search Results
+      </a>
     </li>
     <li>&nbsp;›</li>
 
@@ -25,8 +24,7 @@
 <div class="row row-hero no-border">
   <div class="container-inner title">
     <h1>
-      Ubuntu on {{ details.vendor
-      }}<span class="grey"> {{ details.name }}</span>
+      Ubuntu on {{ details.vendor }}<span class="grey"> {{ details.name }}</span>
     </h1>
   </div>
 
@@ -37,9 +35,10 @@
       <h4>Feedback</h4>
       <p>
         If there is an issue with the information for this system, please
-        <a target="_blank" href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{
-            details.vendor
-          }} {{ details.name }}">let us know</a>.
+        <a target="_blank"
+          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{details.vendor}} {{ details.name }}">
+          let us know
+        </a>.
       </p>
     </div>
   </div>
@@ -107,9 +106,8 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.bus }}/{{
-                      device.identifier
-                    }}/">{{ device.name }}
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
                   </a>
                   </a>
                 </p>
@@ -125,6 +123,7 @@
         <table class="definitions">
           <tbody>
             {% for category, devices in details.hardware_details.items() %}
+            {% if category != "other" %}
             <tr>
               <td style="text-transform: capitalize;" class="title">
                 {{ category }}
@@ -132,16 +131,31 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.bus }}/{{
-                      device.identifier
-                    }}/">{{ device.name }}
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
                   </a>
                 </p>
 
                 {% endfor %}
               </td>
             </tr>
+            {% endif %}
             {% endfor %}
+            <tr>
+              <td style="text-transform: capitalize;" class="title">
+                other
+              </td>
+              <td class="details">
+                {% for device in details.hardware_details["other"] %}
+                <p>
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                    {{ device.name }}
+                  </a>
+                </p>
+
+                {% endfor %}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
