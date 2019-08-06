@@ -296,6 +296,62 @@ def iot():
     return render_template("iot.html", releases=releases, vendors=vendors)
 
 
+@certification_blueprint.route("/iot/models")
+def iot_models():
+    iot_data = get_iot().json()
+    makes = []
+    for dictionary in iot_data["objects"]:
+        if dictionary["smart_core"] != "0":
+            makes.append(dictionary["make"])
+
+    release_data = get_releases().json()
+    releaseList = []
+    for dictionary in release_data["objects"]:
+        if dictionary["smart_core"] != "0":
+            releaseList.append(dictionary["release"])
+    params = {
+        "query": request.args.get("query", ""),
+        "vendors": request.args.getlist("vendors"),
+        "releases": request.args.getlist("release"),
+        "level": request.args.get("level"),
+        "page": int(request.args.get("page", 1)),
+    }
+
+    result = search_devices(
+        query=params["query"],
+        categories=["Ubuntu Core", "Desktop", "Laptop", "Server SoC"],
+        vendors=params["vendors"],
+        releases=params["releases"],
+        level=params["level"],
+        per_page=devices_per_page,
+        page=params["page"],
+    )
+    devices = result["devices"]
+    total_amount_of_devices = result["total"]
+
+    amount_of_pages = ceil(total_amount_of_devices / devices_per_page)
+    page = params["page"]
+
+    pages_to_show_in_pagination = get_pagination_page_array(
+        page, 4, amount_of_pages
+    )
+
+    search_query = url_encode(request.args)
+    search_query = sub(r"&page=\d*", "", search_query)
+
+    return render_template(
+        "iot-search.html",
+        search_params=params,
+        search_fields={"vendors": makes, "releases": releaseList},
+        results=devices,
+        total_amount_of_devices=result["total"],
+        page=params["page"],
+        total_pages=total_amount_of_devices / devices_per_page,
+        pages_to_show_in_pagination=pages_to_show_in_pagination,
+        search_query=search_query,
+    )
+
+
 @certification_blueprint.route("/soc")
 def soc():
     release_data = get_releases().json()
@@ -315,7 +371,6 @@ def soc():
 def soc_models():
     soc_data = get_socs().json()
     makes = []
-    print(soc_data)
     for dictionary in soc_data["objects"]:
         if dictionary["soc"] != "0":
             makes.append(dictionary["make"])
@@ -345,7 +400,6 @@ def soc_models():
 
     amount_of_pages = ceil(total_amount_of_devices / devices_per_page)
     page = params["page"]
-    print(amount_of_pages)
 
     pages_to_show_in_pagination = get_pagination_page_array(
         page, 4, amount_of_pages

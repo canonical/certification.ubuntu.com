@@ -19,4 +19,3 @@ def test_pagination_less_pages_than_offset_wants():
 
 def test_paginatio_only_one_page():
     assert get_pagination_page_array(1, 3, 1) == [1]
-
