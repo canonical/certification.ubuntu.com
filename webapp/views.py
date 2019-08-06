@@ -196,7 +196,7 @@ def desktop_models():
     )
 
     search_query = url_encode(request.args)
-    search_query = sub("&page=\d*", "", search_query)
+    search_query = sub(r"&page=\d*", "", search_query)
 
     return render_template(
         "desktop-search.html",
