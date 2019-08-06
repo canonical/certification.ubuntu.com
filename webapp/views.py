@@ -10,6 +10,7 @@ from webapp.api import (
     get_socs,
     get_desktops,
     get_servers,
+    get_releases_by_vendor,
     get_iot,
     get_laptops,
     get_device_information_by_hardware_id,
@@ -211,7 +212,7 @@ def desktop_models():
 
 @certification_blueprint.route("/server")
 def server():
-    vendor_data = get_servers().json()
+    vendor_data = get_releases_by_vendor().json()
     vendors = vendor_data.get("vendors")
 
     all_releases = []
@@ -308,3 +309,59 @@ def soc():
     vendors = vendors_data.get("objects")
 
     return render_template("soc.html", releases=releases, vendors=vendors)
+
+
+@certification_blueprint.route("/soc/models")
+def soc_models():
+    soc_data = get_socs().json()
+    makes = []
+    print(soc_data)
+    for dictionary in soc_data["objects"]:
+        if dictionary["soc"] != "0":
+            makes.append(dictionary["make"])
+
+    release_data = get_releases().json()
+    releaseList = []
+    for dictionary in release_data["objects"]:
+        if dictionary["soc"] != "0":
+            releaseList.append(dictionary["release"])
+    params = {
+        "query": request.args.get("query", ""),
+        "vendors": request.args.getlist("vendors"),
+        "releases": request.args.getlist("release"),
+        "page": int(request.args.get("page", 1)),
+    }
+
+    result = search_devices(
+        query=params["query"],
+        categories=["Server SoC"],
+        vendors=params["vendors"],
+        releases=params["releases"],
+        per_page=devices_per_page,
+        page=params["page"],
+    )
+    devices = result["devices"]
+    total_amount_of_devices = result["total"]
+
+    amount_of_pages = ceil(total_amount_of_devices / devices_per_page)
+    page = params["page"]
+    print(amount_of_pages)
+
+    pages_to_show_in_pagination = get_pagination_page_array(
+        page, 4, amount_of_pages
+    )
+
+    search_query = url_encode(request.args)
+    search_query = sub(r"&page=\d*", "", search_query)
+
+    return render_template(
+        "server-search.html",
+        search_params=params,
+        search_fields={"vendors": makes, "releases": releaseList},
+        results=devices,
+        total_amount_of_devices=result["total"],
+        page=params["page"],
+        total_pages=total_amount_of_devices / devices_per_page,
+        pages_to_show_in_pagination=pages_to_show_in_pagination,
+        search_query=search_query,
+    )
