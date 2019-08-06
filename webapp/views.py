@@ -117,6 +117,13 @@ def desktop():
 
 
 def get_pagination_page_array(page, offset, total_pages):
+    """
+    Return an array of page numbers to display for a given page with
+    an offset around it.
+    E.g with the current page page=4 and offset 2:
+        [2,3,4,5,6]
+    The total amount of pages is needed for boundary calculation.
+    """
     first_page_to_show = page - offset
     last_page_to_show = page + offset
 
