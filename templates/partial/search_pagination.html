@@ -1,0 +1,21 @@
+<div>
+    You are viewing page&nbsp;
+    {% if pages[1] > 1 %}
+    <a href="?{{search_query}}&amp;page={{pages[1] - 1}}">
+        ...
+    </a>
+    {% endif %}
+    {% for page_number in pages %}
+    {% if page_number == page %}
+    <span class="current"><strong>{{page}}</strong></span>
+    {% else %}
+    <a href="?{{search_query}}&amp;page={{page_number}}">{{page_number}}</a>
+    {% endif %}
+    {% endfor %}
+    {% if pages[-1] < total_pages %}
+    <a href="?{{search_query}}&amp;page={{pages[-1] + 1}}">
+        ...
+    </a>
+    {% endif %}
+
+</div>

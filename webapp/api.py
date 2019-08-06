@@ -41,7 +41,7 @@ def get_iot():
 
 
 def get_servers():
-    return get_releases_by_vendor()
+    return get("certifiedmakes/?format=json&servers__gte=1")
 
 
 def get_device_information_by_hardware_id(id):

@@ -111,15 +111,9 @@
           </div>
           <div class="six-col right last-col">
             <p class="right">
-              You are viewing page&nbsp;
-
-              {% for page_number in pages_to_show_in_pagination %}
-              {% if page_number == page %}
-              <span class="current"><strong>{{page}}</strong></span>
-              {% else %}
-              <a href="?{{search_query}}&amp;page={{page_number}}">{{page_number}}</a>
-              {% endif %}
-              {% endfor %}
+              {% with pages=pages_to_show_in_pagination, page=page, total_pages=total_pages  %}
+              {% include "partial/search_pagination.html" %}
+              {% endwith %}
             </p>
           </div>
         </div>
@@ -156,14 +150,9 @@
           </div>
           <div class="six-col right last-col">
             <p class="right">
-              You are viewing page&nbsp;
-              {% for page_number in pages_to_show_in_pagination %}
-              {% if page_number == page %}
-              <span class="current"><strong>{{page}}</strong></span>
-              {% else %}
-              <a href="?{{search_query}}&amp;page={{page_number}}">{{page_number}}</a>
-              {% endif %}
-              {% endfor %}
+              {% with pages=pages_to_show_in_pagination, page=page, total_pages=total_pages  %}
+              {% include "partial/search_pagination.html" %}
+              {% endwith %}
             </p>
           </div>
         </div>

@@ -1,0 +1,141 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+<nav role="navigation" class="nav-secondary clearfix">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/server/">
+                Ubuntu Server
+            </a>
+        </li>
+        <li>&nbsp;›</li>
+
+        <li class="active">
+            <a href="/server/models/{{search_query}}">Search Results</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="row row-hero no-border">
+    <div class="container-inner title">
+        <h1>Ubuntu Server certified hardware</h1>
+    </div>
+
+    <div class="three-col">
+        <form id="sidebar-search" action="" method="get" class="body-search">
+            <fieldset>
+
+                <div id="search">
+                    <input id="id_query" name="query" value="{{ search_params.query }}" maxlength="200" type="text" />
+                </div>
+
+                <div id="filter">
+                    <p></p>
+                    <p><label for="id_vendors_0">Vendor:</label></p>
+                    <ul id="id_vendors">
+                        {% for vendor in search_fields.vendors %}
+                        <li>
+                            <label for="id_vendors_{{ loop.index }}"><input id="id_vendors_{{ loop.index }}"
+                                    name="vendors" value="{{ vendor }}" type="checkbox"
+                                    {% if vendor in search_params.vendors %} checked {% endif %} />
+                                {{ vendor }}</label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p></p>
+                    <p><label for="id_release_0">Release:</label></p>
+                    <ul id="id_release">
+                        {% for release in search_fields.releases %}
+                        <li>
+                            <label for="id_release_{{ loop.index }}"><input id="id_release_{{ loop.index }}"
+                                    name="release" value="{{ release }}" type="checkbox"
+                                    {% if release in search_params.releases %} checked {% endif %} />
+                                {{ release }}</label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p></p>
+
+                    <input value="Update" type="submit" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="main">
+        <div class="nine-col  last-col">
+            <p class="large">
+                Canonical works closely with OEMs to certify Ubuntu on a range of
+                their hardware.
+            </p>
+            <p>
+                The following are all certified. More and more devices are being added
+                with each release, so don't forget to check this page regularly.
+            </p>
+            {% if search_params.query != "" %}
+            <p>Showing results for "{{search_params.query}}"</p>
+            {% endif %}
+
+            {% if total_amount_of_devices > 0 %}
+            <div id="models" class="models">
+                <div class="pagination">
+                    <div class="three-col">
+                        <p>{{total_amount_of_devices}} results</p>
+                    </div>
+                    <div class="six-col right last-col">
+                        <p class="right">
+                            {% with pages=pages_to_show_in_pagination, page=page, total_pages=total_pages  %}
+                            {% include "partial/search_pagination.html" %}
+                            {% endwith %}
+                        </p>
+                    </div>
+                </div>
+                <ul class="model-list">
+                    {% for result in results %}
+                    <li class="model enabled">
+                        <p>
+                            {{ result.make }}
+                            <a href="/hardware/{{ result.canonical_id }}/">{{ result.model }}</a> {{ result.category }}
+                        </p>
+                        <ul class="device_summary closed">
+                            {% if result.level == "Certified"%}
+                            <li class="device level">Available from ubuntu.com</li>
+                            {% else %}
+                            <li class="device level">Pre-installed by manufacturer</li>
+                            {% endif %}
+
+                            <li class="device processor" title="Intel Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz">
+                                {{result.make}}
+                            </li>
+
+                            <li class="device network"
+                                title="Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller">
+                                Realtek Semiconductor Co., Ltd.
+                            </li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="pagination">
+                    <div class="three-col">
+                        <p>{{total_amount_of_devices}} results</p>
+                    </div>
+                    <div class="six-col right last-col">
+                        <p class="right">
+                            {% with pages=pages_to_show_in_pagination, page=page, total_pages=total_pages  %}
+                            {% include "partial/search_pagination.html" %}
+                            {% endwith %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p>No results found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script src="{{ versioned_static('js/jquery.js') }}"></script>
+<script src="{{ versioned_static('js/hover.js') }}"></script>
+
+{% endblock %}

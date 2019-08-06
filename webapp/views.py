@@ -24,6 +24,8 @@ certification_blueprint = Blueprint(
     static_folder="/static",
 )
 
+devices_per_page = 25
+
 
 @certification_blueprint.route("/hardware/<hardware_id>")
 def hardware(hardware_id):
@@ -133,8 +135,6 @@ def get_pagination_page_array(page, offset, total_pages):
         first_page_offset = first_page_to_show * -1 + 1
         first_page_to_show = 1
 
-    print(last_page_to_show)
-
     if last_page_to_show > total_pages:
         if first_page_to_show > 1 and first_page_offset == 0:
             first_page_to_show = max(
@@ -173,8 +173,6 @@ def desktop_models():
 
     if not params["category"]:
         params["category"] = ["Desktop"]
-
-    devices_per_page = 25
 
     result = search_devices(
         query=params["query"],
@@ -225,6 +223,60 @@ def server():
 
     return render_template(
         "server.html", releases=all_releases, vendors=vendors
+    )
+
+
+@certification_blueprint.route("/server/models")
+def server_models():
+    server_data = get_servers().json()
+    makes = []
+    for dictionary in server_data["objects"]:
+        if dictionary["servers"] != "0":
+            makes.append(dictionary["make"])
+
+    release_data = get_releases().json()
+    releaseList = []
+    for dictionary in release_data["objects"]:
+        if dictionary["servers"] != "0":
+            releaseList.append(dictionary["release"])
+    params = {
+        "query": request.args.get("query", ""),
+        "vendors": request.args.getlist("vendors"),
+        "releases": request.args.getlist("release"),
+        "page": int(request.args.get("page", 1)),
+    }
+
+    result = search_devices(
+        query=params["query"],
+        categories=["Server"],
+        vendors=params["vendors"],
+        releases=params["releases"],
+        per_page=devices_per_page,
+        page=params["page"],
+    )
+    devices = result["devices"]
+    total_amount_of_devices = result["total"]
+
+    amount_of_pages = ceil(total_amount_of_devices / devices_per_page)
+    page = params["page"]
+
+    pages_to_show_in_pagination = get_pagination_page_array(
+        page, 4, amount_of_pages
+    )
+
+    search_query = url_encode(request.args)
+    search_query = sub(r"&page=\d*", "", search_query)
+
+    return render_template(
+        "server-search.html",
+        search_params=params,
+        search_fields={"vendors": makes, "releases": releaseList},
+        results=devices,
+        total_amount_of_devices=result["total"],
+        page=params["page"],
+        total_pages=total_amount_of_devices / devices_per_page,
+        pages_to_show_in_pagination=pages_to_show_in_pagination,
+        search_query=search_query,
     )
 
 
