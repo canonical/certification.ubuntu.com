@@ -82,7 +82,7 @@ def search_devices(
         f"&limit={per_page}&offset={(page - 1) * per_page}"
     )
     if query:
-        base += "&query=" + query
+        base += "&model__regex=" + query
     if categories:
         for category in categories:
             base += "&category=" + category

@@ -99,7 +99,11 @@
         The following are all certified. More and more devices are being added
         with each release, so don't forget to check this page regularly.
       </p>
+      {% if search_params.query != "" %}
+      <p>Showing results for "{{search_params.query}}"</p>
+      {% endif %}
 
+      {% if total_amount_of_devices > 0 %}
       <div id="models" class="models">
         <div class="pagination">
           <div class="three-col">
@@ -164,6 +168,9 @@
           </div>
         </div>
       </div>
+      {% else %}
+      <p>No results found.</p>
+      {% endif %}
     </div>
   </div>
 </div>
