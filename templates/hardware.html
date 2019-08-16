@@ -87,10 +87,12 @@
 
             <p>There are no notes for this release.</p>
 
+            {% if release.bios %}
             <dl id="bios-list">
               <dt>BIOS</dt>
               <dd>{{ release.bios }}</dd>
             </dl>
+            {% endif %}
           </div>
         </div>
         {% endfor %}

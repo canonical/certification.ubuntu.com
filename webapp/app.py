@@ -1,92 +1,89 @@
-# Standard library
-import os
-
 # Packages
 import flask
 from canonicalwebteam.flask_base.app import FlaskBase
+from canonicalwebteam.http import CachedSession
 
 # Local
-from webapp.api import get, get_device_information_by_hardware_id
+from webapp.api import CertificationAPI
 
-
-dir_path = os.path.dirname(os.path.abspath(__file__))
-app_dir = os.path.dirname(dir_path)
-templates_dir = os.path.join(app_dir, "templates")
 
 app = FlaskBase(
     __name__,
     "certification.ubuntu.com",
-    template_folder=templates_dir,
+    template_folder="../templates",
     static_folder="../static",
     template_404="404.html",
     template_500="500.html",
 )
 
+api = CertificationAPI(
+    base_url="https://certification.canonical.com/api/v1",
+    session=CachedSession(),
+)
 
-@app.route("/hardware/<hardware_id>")
-def hardware(hardware_id):
-    modelinfo_data = get_device_information_by_hardware_id(hardware_id)
+
+@app.route("/hardware/<canonical_id>")
+def hardware(canonical_id):
+    model_info = api.certifiedmodel(canonical_id)
+    model_devices = api.certifiedmodeldevices(
+        canonical_id=canonical_id, limit="0"
+    )["objects"]
+    model_releases = api.certifiedmodeldetails(
+        canonical_id=canonical_id, limit="0"
+    )["objects"]
 
     hardware_details = {}
-    for component in modelinfo_data.get("hardware_details"):
-        category = component.get("category")
-        if category != "BIOS":
-            category = category.lower()
-        if category not in hardware_details:
-            hardware_details[category] = []
 
-        hardware_info = {
-            "name": f"{component.get('make')} {component.get('name')}",
-            "bus": component.get("bus"),
-            "identifier": component.get("identifier"),
+    for device in model_devices:
+        device_info = {
+            "name": f"{device['make']} {device['name']}",
+            "bus": device["bus"],
+            "identifier": device["identifier"],
         }
 
-        hardware_details[category].append(hardware_info)
+        category = device["category"]
+        if category != "BIOS":
+            category = category.lower()
+
+        if category in hardware_details:
+            hardware_details[category].append(device_info)
+        else:
+            hardware_details[category] = [device_info]
 
     release_details = {"components": {}, "releases": []}
-    for release in modelinfo_data.get("release_details"):
-        release_version = release["certified_release"]
-        release_name = (
-            "Ubuntu "
-            f"{release_version} "
-            f"{ '64 Bit' if release['architecture'] == 'amd64' else '32 Bit'}"
-        )
+
+    for model_release in model_releases:
+        ubuntu_version = model_release["certified_release"]
+        arch = ""
+        if model_release["architecture"] == "amd64":
+            arch = "64 Bit"
+        else:
+            arch = "32 Bit"
+
         release_info = {
-            "name": release_name,
-            "kernel": release["kernel_version"],
-            "bios": release["bios"],
-            "release_version": release_version,
+            "name": f"Ubuntu {ubuntu_version} {arch}",
+            "kernel": model_release["kernel_version"],
+            "bios": model_release["bios"],
+            "version": ubuntu_version,
         }
         release_details["releases"].append(release_info)
 
-        for key, values in release.items():
-            if key in ["video", "processor", "network", "wireless"] and values:
-                devices = []
-                for name in values:
-                    # Device cant be in releasedetails but not hardwaredetails.
-                    # Would be an API error, since its the same machine
-                    device = next(
-                        (
-                            x
-                            for x in hardware_details[key]
-                            if name in x["name"]
-                        ),
-                        None,
-                    )
-                    devices.append(device)
-
-                if key in release_details["components"]:
-                    release_details["components"][key] = (
-                        release_details["components"][key] + devices
-                    )
+        for device_category, devices in model_release.items():
+            if (
+                device_category
+                in ["video", "processor", "network", "wireless"]
+                and devices
+            ):
+                if device_category in release_details["components"]:
+                    release_details["components"][device_category] += devices
                 else:
-                    release_details["components"][key] = devices
+                    release_details["components"][device_category] = devices
 
     details = {
-        "id": hardware_id,
-        "name": modelinfo_data.get("model"),
-        "vendor": modelinfo_data.get("make"),
-        "major_release": modelinfo_data.get("major_release"),
+        "id": canonical_id,
+        "name": model_info.get("model"),
+        "vendor": model_info.get("make"),
+        "major_release": model_info.get("major_release"),
         "hardware_details": hardware_details,
         "release_details": release_details,
     }
@@ -94,79 +91,58 @@ def hardware(hardware_id):
     return flask.render_template("hardware.html", details=details)
 
 
-@app.route("/desktop")
-def desktop():
-    release_data = get("certifiedreleases?format=json").json()
-    releases = [
-        release
-        for release in release_data.get("objects")
-        if release.get("desktops") != "0" or release.get("laptops") != "0"
-    ]
-
-    desktop_data = get("certifiedmakes/?format=json&desktops__gte=1").json()
-    laptop_data = get("certifiedmakes/?format=json&laptops__gte=1").json()
-
-    vendors = {
-        entry["make"]: entry
-        for entry in desktop_data.get("objects") + laptop_data.get("objects")
-    }.values()
-
-    return flask.render_template(
-        "desktop.html", releases=releases, vendors=vendors
-    )
-
-
 @app.route("/")
 def index():
     return flask.render_template("index.html")
 
 
+@app.route("/desktop")
+def desktop():
+    releases = []
+    vendors = []
+
+    for release in api.certifiedreleases(limit="0")["objects"]:
+        if int(release["desktops"]) > 0 or int(release["laptops"]) > 0:
+            releases.append(release)
+
+    for vendor in api.certifiedmakes(limit="0")["objects"]:
+        if int(vendor["desktops"]) > 0 or int(vendor["laptops"]) > 0:
+            vendors.append(vendor)
+
+    return flask.render_template(
+        "desktop/index.html", releases=releases, vendors=vendors
+    )
+
+
 @app.route("/server")
 def server():
-    vendor_data = get("vendorsummaries/server/?format=json").json()
-    vendors = vendor_data.get("vendors")
+    vendors = api.vendorsummaries_server()["vendors"]
 
-    all_releases = []
+    releases = []
 
     for vendor in vendors:
         for release in vendor["releases"]:
-            if release not in all_releases:
-                all_releases.append(release)
+            if release not in releases:
+                releases.append(release)
 
     return flask.render_template(
-        "server.html", releases=all_releases, vendors=vendors
+        "server/index.html", releases=releases, vendors=vendors
     )
 
 
 @app.route("/iot")
 def iot():
-    release_data = get("certifiedreleases?format=json").json()
-    releases = [
-        release
-        for release in release_data.get("objects")
-        if release.get("smart_core") != "0"
-    ]
-
-    vendors_data = get("certifiedmakes/?format=json&smart_core__gte=1").json()
-    vendors = vendors_data.get("objects")
-
     return flask.render_template(
-        "iot.html", releases=releases, vendors=vendors
+        "iot/index.html",
+        releases=api.certifiedreleases(smart_core__gte="1")["objects"],
+        vendors=api.certifiedmakes(smart_core__gte="1")["objects"],
     )
 
 
 @app.route("/soc")
 def soc():
-    release_data = get("certifiedreleases?format=json").json()
-    releases = [
-        release
-        for release in release_data.get("objects")
-        if release.get("soc") != "0"
-    ]
-
-    vendors_data = get("certifiedmakes/?format=json&soc__gte=1").json()
-    vendors = vendors_data.get("objects")
-
     return flask.render_template(
-        "soc.html", releases=releases, vendors=vendors
+        "soc/index.html",
+        releases=api.certifiedreleases(soc__gte="1")["objects"],
+        vendors=api.certifiedmakes(soc__gte="1")["objects"],
     )
