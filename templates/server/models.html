@@ -1,0 +1,122 @@
+{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
+{% endblock %} {% block content %}
+<nav role="navigation" class="nav-secondary clearfix">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/server/">
+                Ubuntu Server
+            </a>
+        </li>
+        <li>&nbsp;›</li>
+
+        <li class="active">
+            Search Results
+        </li>
+    </ul>
+</nav>
+
+<div class="row row-hero no-border">
+    <div class="container-inner title">
+        <h1>Ubuntu Server certified hardware</h1>
+    </div>
+
+    <div class="three-col">
+        <form id="sidebar-search" action="" method="get" class="body-search">
+            <fieldset>
+                <div id="search">
+                    <input id="id_query" name="query" value="{{ query }}" maxlength="200" type="text" />
+                </div>
+
+                <div id="filter">
+                    <p></p>
+                    <p><label for="id_vendors_0">Vendor:</label></p>
+                    <ul id="id_vendors">
+                        {% for vendor in all_vendors %}
+                        <li>
+                            <label for="id_vendors_{{ loop.index }}"><input id="id_vendors_{{ loop.index }}"
+                                    name="vendors" value="{{ vendor }}" type="checkbox"
+                                    {% if vendor in vendors %} checked {% endif %} />
+                                {{ vendor }}</label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p></p>
+                    <p><label for="id_release_0">Release:</label></p>
+                    <ul id="id_release">
+                        {% for release in all_releases %}
+                        <li>
+                            <label for="id_release_{{ loop.index }}"><input id="id_release_{{ loop.index }}"
+                                    name="release" value="{{ release }}" type="checkbox"
+                                    {% if release in releases %} checked {% endif %} />
+                                {{ release }}</label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p></p>
+
+                    <input value="Update" type="submit" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="main">
+        <div class="nine-col  last-col">
+            <p class="large">
+                Canonical works closely with OEMs to certify Ubuntu on a range of
+                their hardware.
+            </p>
+            <p>
+                The following are all certified. More and more devices are being added
+                with each release, so don't forget to check this page regularly.
+            </p>
+            {% if query %}
+            <p>Showing results for "{{ query }}"</p>
+            {% endif %}
+
+            {% if total > 0 %}
+            <div id="models" class="models">
+                <div class="pagination">
+                    <div class="three-col">
+                        <p>{{ total }} results</p>
+                    </div>
+                    <div class="six-col right last-col">
+                        <p class="right">
+                            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+                            {% include "_pagination.html" %}
+                            {% endwith %}
+                        </p>
+                    </div>
+                </div>
+                <ul class="model-list">
+                    {% for model in models %}
+                    <li class="model enabled">
+                        <p>
+                            {{ model.make }}
+                            <a href="/hardware/{{ model.canonical_id }}/">{{ model.model }}</a> {{ model.category }}
+                        </p>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="pagination">
+                    <div class="three-col">
+                        <p>{{ total }} results</p>
+                    </div>
+                    <div class="six-col right last-col">
+                        <p class="right">
+                            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+                            {% include "_pagination.html" %}
+                            {% endwith %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p>No results found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
