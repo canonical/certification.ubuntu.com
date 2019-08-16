@@ -47,13 +47,39 @@ class CertificationAPI:
             },
         ).json()
 
-    def certifiedmodels(self, limit=None, offset=None):
-        return self._get(
-            "certifiedmodels", params={"limit": limit, "offset": offset}
-        ).json()
+    def certifiedmodels(
+        self,
+        limit=None,
+        offset=None,
+        level=None,
+        category=None,
+        canonical_id=None,
+        major_release__in=None,
+        make__in=None,
+        category__in=None,
+        model__regex=None,
+        make__regex=None,
+        order_by=None,
+    ):
+        response = self._get(
+            "certifiedmodels",
+            params={
+                "limit": limit,
+                "offset": offset,
+                "level": level,
+                "major_release__in": major_release__in,
+                "make__in": make__in,
+                "canonical_id": canonical_id,
+                "category": category,
+                "category__in": category__in,
+                "model__regex": model__regex,
+                "make__regex": make__regex,
+                "order_by": order_by,
+            },
+        )
+        response.raise_for_status()
 
-    def certifiedmodel(self, id):
-        return self._get(f"certifiedmodels/{id}").json()
+        return response.json()
 
     def certifiedmodeldetails(
         self, limit=None, offset=None, canonical_id=None

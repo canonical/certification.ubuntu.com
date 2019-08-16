@@ -1,3 +1,6 @@
+# Standard library
+import math
+
 # Packages
 import flask
 from canonicalwebteam.flask_base.app import FlaskBase
@@ -5,6 +8,7 @@ from canonicalwebteam.http import CachedSession
 
 # Local
 from webapp.api import CertificationAPI
+from webapp.helpers import get_pagination_page_array
 
 
 app = FlaskBase(
@@ -24,7 +28,9 @@ api = CertificationAPI(
 
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
-    model_info = api.certifiedmodel(canonical_id)
+    model_info = api.certifiedmodels(canonical_id=canonical_id, limit=1)[
+        "objects"
+    ][0]
     model_devices = api.certifiedmodeldevices(
         canonical_id=canonical_id, limit="0"
     )["objects"]
@@ -111,6 +117,72 @@ def desktop():
 
     return flask.render_template(
         "desktop/index.html", releases=releases, vendors=vendors
+    )
+
+
+@app.route("/desktop/models")
+def desktop_models():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    level = flask.request.args.get("level") or "Any"
+    categories = flask.request.args.getlist("category") or [
+        "Desktop",
+        "Laptop",
+    ]
+    releases = flask.request.args.getlist("release")
+    vendors = flask.request.args.getlist("vendors")
+
+    if level.lower() == "any":
+        level = None
+
+    models_response = api.certifiedmodels(
+        level=level,
+        category__in=",".join(categories),
+        major_release__in=",".join(releases) if releases else None,
+        make__in=",".join(vendors) if vendors else None,
+        make__regex=query,
+        # We should use query instead of make__regex as soon as it's ready
+        # query=query,
+        order_by="make",
+        offset=(int(page) - 1) * 20,
+    )
+    models = models_response["objects"]
+    total = models_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    all_releases = []
+    all_vendors = []
+
+    for release in api.certifiedreleases(limit="0")["objects"]:
+        if int(release["desktops"]) > 0 or int(release["laptops"]) > 0:
+            all_releases.append(release["release"])
+
+    for vendor in api.certifiedmakes(limit="0")["objects"]:
+        if int(vendor["desktops"]) > 0 or int(vendor["laptops"]) > 0:
+            all_vendors.append(vendor["make"])
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "desktop/models.html",
+        models=models,
+        query=query,
+        level=level,
+        categories=categories,
+        releases=releases,
+        all_releases=sorted(all_releases, reverse=True),
+        vendors=vendors,
+        all_vendors=sorted(all_vendors),
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
     )
 
 
