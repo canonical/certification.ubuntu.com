@@ -415,7 +415,7 @@ def components():
             query_items.append(f"{key}={value}")
 
     return flask.render_template(
-        "components.html",
+        "components/index.html",
         components=components,
         query=query,
         vendors=vendors,
@@ -424,4 +424,29 @@ def components():
         query_string="&".join(query_items),
         page=page,
         pages=get_pagination_page_array(page, num_pages),
+    )
+
+
+@app.route("/components/<id>")
+def component_details(id):
+    component = api.componentsummary(id)
+
+    all_machines = api.certifiedmodels(
+        canonical_id__in=component["machine_canonical_ids"]
+    )["objects"]
+
+    machines_by_id = {}
+
+    for machine in all_machines:
+        if machine["canonical_id"] not in machines_by_id:
+            machines_by_id[machine["canonical_id"]] = machine
+
+    machines = machines_by_id.values()
+
+    return flask.render_template(
+        "components/details.html",
+        component=component,
+        machines=sorted(
+            machines, key=lambda machine: machine["canonical_id"], reverse=True
+        ),
     )

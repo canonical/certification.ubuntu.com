@@ -54,6 +54,7 @@ class CertificationAPI:
         level=None,
         category=None,
         canonical_id=None,
+        canonical_id__in=None,
         major_release__in=None,
         make__in=None,
         category__in=None,
@@ -70,6 +71,7 @@ class CertificationAPI:
                 "major_release__in": major_release__in,
                 "make__in": make__in,
                 "canonical_id": canonical_id,
+                "canonical_id__in": canonical_id__in,
                 "category": category,
                 "category__in": category__in,
                 "model__regex": model__regex,
@@ -119,17 +121,26 @@ class CertificationAPI:
         ).json()
 
     def componentsummaries(
-        self, limit=None, offset=None, vendor_name__in=None, model__regex=None
+        self,
+        limit=None,
+        offset=None,
+        id=None,
+        vendor_name__in=None,
+        model__regex=None,
     ):
         return self._get(
             "componentsummaries",
             params={
                 "limit": limit,
                 "offset": offset,
+                "id": id,
                 "vendor_name__in": vendor_name__in,
                 "model__regex": model__regex,
             },
         ).json()
+
+    def componentsummary(self, id):
+        return self._get(f"componentsummaries/{id}").json()
 
     def devicecategories(self, limit=None, offset=None):
         return self._get(
