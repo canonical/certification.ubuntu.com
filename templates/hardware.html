@@ -24,7 +24,7 @@
 <div class="row row-hero no-border">
   <div class="container-inner title">
     <h1>
-      Ubuntu on {{ details.vendor }}<span class="grey"> {{ details.name }}</span>
+      Ubuntu on {{ vendor }}<span class="grey"> {{ name }}</span>
     </h1>
   </div>
 
@@ -36,7 +36,7 @@
       <p>
         If there is an issue with the information for this system, please
         <a target="_blank"
-          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{details.vendor}} {{ details.name }}">
+          href="https://answers.launchpad.net/ubuntu-certification/+addquestion?field.title=Feedback on the {{vendor}} {{ name }}">
           let us know
         </a>.
       </p>
@@ -47,7 +47,7 @@
     <div class="nine-col  last-col device">
       <div class="row row-hero" id="hardware-detail">
         <p class="large">
-          The <strong>{{ details.vendor }} {{ details.name }}</strong> desktop
+          The <strong>{{ vendor }} {{ name }}</strong> desktop
           with the components described below has been awarded the status of
           certified pre-install for Ubuntu.
         </p>
@@ -69,7 +69,7 @@
         </ol>
 
         <div id="releases">
-          {% for release in details.release_details.releases %}
+          {% for release in release_details.releases %}
           <div class="release box">
             <h3 class="enabled">
               {{ release.name }}
@@ -102,7 +102,7 @@
 
         <table class="definitions">
           <tbody>
-            {% for category, devices in details.release_details.components.items() %}
+            {% for category, devices in release_details.components.items() %}
             <tr>
               <td style="text-transform: capitalize;" class="title">{{category}}</td>
               <td class="details">
@@ -124,7 +124,7 @@
 
         <table class="definitions">
           <tbody>
-            {% for category, devices in details.hardware_details.items() %}
+            {% for category, devices in hardware_details.items() %}
             {% if category != "other" %}
             <tr>
               <td style="text-transform: capitalize;" class="title">
@@ -148,7 +148,7 @@
                 other
               </td>
               <td class="details">
-                {% for device in details.hardware_details["other"] %}
+                {% for device in hardware_details["other"] %}
                 <p>
                   <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
                     {{ device.name }}
@@ -162,7 +162,52 @@
         </table>
       </div>
     </div>
-    <div></div>
+
+    {% if components %}
+      <div>
+        <h2>Component Devices</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Vendor</th>
+              <th>Model</th>
+              <th>Make</th>
+              <th>14.04 LTS</th>
+              <th>Core 16</th>
+              <th>16.04 LTS</th>
+              <th>Core 18</th>
+              <th>18.04 LTS</th>
+              <th>comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for component in components %}
+              <tr>
+                <td>{{ component.vendor_name }}</td>
+                <td><a href="/components/{{ component.id }}">{{ component.model }}</a></td>
+                <td>{{ component.vendor_make }}</td>
+                <td>{% if "14.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["14.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "Core 16" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 16"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "16.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["16.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "Core 18" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 18"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "18.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["18.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{{ component.note }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <ul style="list-style-type:none;">
+          <li>✔ Supported</li>
+          <li>X Unsupported</li>
+          <li>? In progress</li>
+          <li>(1) Third party driver may be required.</li>
+        </ul>
+
+        <a class="p-button--neutral" href="/components?query={{ canonical_id }}">View all component devices</a>
+      </div>
+    {% endif %}
   </div>
 </div>
 

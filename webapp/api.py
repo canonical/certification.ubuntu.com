@@ -125,6 +125,7 @@ class CertificationAPI:
         limit=None,
         offset=None,
         id=None,
+        canonical_id=None,
         vendor_name__in=None,
         model__regex=None,
     ):
@@ -134,6 +135,7 @@ class CertificationAPI:
                 "limit": limit,
                 "offset": offset,
                 "id": id,
+                "canonical_id": canonical_id,
                 "vendor_name__in": vendor_name__in,
                 "model__regex": model__regex,
             },

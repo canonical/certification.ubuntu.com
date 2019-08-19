@@ -90,16 +90,19 @@ def hardware(canonical_id):
                 else:
                     release_details["components"][device_category] = devices
 
-    details = {
-        "id": canonical_id,
-        "name": model_info.get("model"),
-        "vendor": model_info.get("make"),
-        "major_release": model_info.get("major_release"),
-        "hardware_details": hardware_details,
-        "release_details": release_details,
-    }
-
-    return flask.render_template("hardware.html", details=details)
+    return flask.render_template(
+        "hardware.html",
+        canonical_id=canonical_id,
+        name=model_info.get("model"),
+        vendor=model_info.get("make"),
+        major_release=model_info.get("major_release"),
+        hardware_details=hardware_details,
+        release_details=release_details,
+        # Only show the first 5 components
+        components=api.componentsummaries(canonical_id=canonical_id)[
+            "objects"
+        ][:5],
+    )
 
 
 @app.route("/desktop")
