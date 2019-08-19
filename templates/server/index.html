@@ -1,6 +1,8 @@
-{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
-{% endblock %} {% block content %}
+{% extends '_layout.html' %}
 
+{% block title%} Ubuntu Server certified hardware{% endblock %}
+
+{% block content %}
 <nav role="navigation" class="nav-secondary clearfix">
   <ul class="breadcrumb">
     <li class="active">
@@ -34,7 +36,7 @@
           {% for release in releases %}
           <th scope="col">
             <a
-              href="/server/models/?release={{ release }}&amp;category=Server"
+              href="/server/models?release={{ release }}&amp;category=Server"
               >{{ release }}</a
             >
           </th>
@@ -45,7 +47,7 @@
         {% for vendor in vendors %}
         <tr>
           <td>
-            <a href="/server/models/?vendors={{ vendor['vendor'] }}">{{
+            <a href="/server/models?vendors={{ vendor['vendor'] }}">{{
               vendor["vendor"]
             }}</a>
           </td>
@@ -53,7 +55,7 @@
           <td>
             {% if not vendor[release] %} - {% else %}
             <a
-              href="/server/models/?release={{ release }}&amp;vendors={{
+              href="/server/models?release={{ release }}&amp;vendors={{
                 vendor['vendor']
               }}
               "

@@ -1,1 +1,15 @@
-500
+{% extends '_layout.html' %}
+
+{% block title%}500: Server error{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="eight-col">
+    <h1>500: Server error</h1>
+    <p class="p-heading--four">Something&rsquo;s gone wrong.</p>
+  </div>
+  <div class="four-col last-col">
+    <img src="https://assets.ubuntu.com/v1/bcdcf2c8-image-404.svg?w=200" alt="Error owl" width="200">
+  </div>
+</div>
+{% endblock %}

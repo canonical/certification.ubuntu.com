@@ -1,9 +1,12 @@
-{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
-{% endblock %} {% block content %}
+{% extends '_layout.html' %}
+
+{% block title%}Ubuntu Server certified hardware{% endblock %}
+
+{% block content %}
 <nav role="navigation" class="nav-secondary clearfix">
     <ul class="breadcrumb">
         <li>
-            <a href="/server/">
+            <a href="/server">
                 Ubuntu Server
             </a>
         </li>
@@ -93,7 +96,7 @@
                     <li class="model enabled">
                         <p>
                             {{ model.make }}
-                            <a href="/hardware/{{ model.canonical_id }}/">{{ model.model }}</a> {{ model.category }}
+                            <a href="/hardware/{{ model.canonical_id }}">{{ model.model }}</a> {{ model.category }}
                         </p>
                     </li>
                     {% endfor %}

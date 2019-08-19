@@ -1,6 +1,6 @@
 {% extends '_layout.html' %}
 
-{% block title%}Ubuntu Server certified hardware{% endblock %}
+{% block title%}Component Device Details{% endblock %}
 
 {% block content %}
 <div class="row row-hero no-border">
@@ -82,7 +82,7 @@
             {% for machine in machines %}
               <tr>
                 <td>
-                  <a href="/hardware/{{ machine.canonical_id }}/">{{ machine.canonical_id }}</a> {{ machine.make }} {{ machine.model }}</td>
+                  <a href="/hardware/{{ machine.canonical_id }}">{{ machine.canonical_id }}</a> {{ machine.make }} {{ machine.model }}</td>
               </tr>
             {% endfor %}
           </tbody>

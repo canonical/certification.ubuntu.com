@@ -1,1 +1,15 @@
-404
+{% extends '_layout.html' %}
+
+{% block title%}404: Page not found{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="eight-col">
+    <h1>404: Page not found</h1>
+    <p class="p-heading--four">Sorry, we couldn’t find that page.</p>
+  </div>
+  <div class="four-col last-col">
+    <img src="https://assets.ubuntu.com/v1/bcdcf2c8-image-404.svg?w=200" alt="Error owl" width="200">
+  </div>
+</div>
+{% endblock %}

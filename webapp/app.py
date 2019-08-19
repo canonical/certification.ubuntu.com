@@ -146,7 +146,6 @@ def desktop_models():
         make__regex=query,
         # We should use query instead of make__regex as soon as it's ready
         # query=query,
-        order_by="make",
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -219,7 +218,6 @@ def server_models():
         make__regex=query,
         # We should use query instead of make__regex as soon as it's ready
         # query=query,
-        order_by="make",
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -288,7 +286,6 @@ def iot_models():
         make__regex=query,
         # We should use query instead of make__regex as soon as it's ready
         # query=query,
-        order_by="make",
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -351,7 +348,6 @@ def soc_models():
         make__regex=query,
         # We should use query instead of make__regex as soon as it's ready
         # query=query,
-        order_by="make",
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]

@@ -1,5 +1,8 @@
-{% extends '_layout.html' %} {% block title%} Ubuntu Server certified hardware
-{% endblock %} {% block content %}
+{% extends '_layout.html' %}
+
+{% block title%}Ubuntu System on a Chip certified hardware{% endblock %}
+
+{% block content %}
 <nav role="navigation" class="nav-secondary clearfix">
   <ul class="breadcrumb">
     <li class="active">
@@ -51,12 +54,12 @@
         {% for vendor in vendors %}
         <tr>
           <td>
-            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+            <a href="/soc/models?vendors={{ vendor.make }}">{{
               vendor.make
             }}</a>
           </td>
           <td>
-            <a href="/soc/models/?vendors={{ vendor.make }}">{{
+            <a href="/soc/models?vendors={{ vendor.make }}">{{
               vendor.soc
             }}</a>
           </td>
@@ -79,12 +82,12 @@
         {% for release in releases %}
         <tr>
           <td>
-            <a href="/soc/models/?release={{ release.release }}">{{
+            <a href="/soc/models?release={{ release.release }}">{{
               release.release
             }}</a>
           </td>
           <td>
-            <a href="/soc/models/?release={{ release.release }}">{{
+            <a href="/soc/models?release={{ release.release }}">{{
               release.soc
             }}</a>
           </td>
