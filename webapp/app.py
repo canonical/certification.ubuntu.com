@@ -202,6 +202,61 @@ def server():
     )
 
 
+@app.route("/server/models")
+def server_models():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    releases = flask.request.args.getlist("release")
+    vendors = flask.request.args.getlist("vendors")
+
+    models_response = api.certifiedmodels(
+        category="Server",
+        major_release__in=",".join(releases) if releases else None,
+        make__in=",".join(vendors) if vendors else None,
+        make__regex=query,
+        # We should use query instead of make__regex as soon as it's ready
+        # query=query,
+        order_by="make",
+        offset=(int(page) - 1) * 20,
+    )
+    models = models_response["objects"]
+    total = models_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    vendor_data = api.vendorsummaries_server()["vendors"]
+
+    all_releases = []
+    all_vendors = []
+
+    for vendor_datum in vendor_data:
+        all_vendors.append(vendor_datum["vendor"])
+        for release in vendor_datum["releases"]:
+            if release not in all_releases:
+                all_releases.append(release)
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "server/models.html",
+        models=models,
+        query=query,
+        releases=releases,
+        all_releases=sorted(all_releases, reverse=True),
+        vendors=vendors,
+        all_vendors=sorted(all_vendors),
+        total=total,
+        page=page,
+        query_string="&".join(query_items),
+        pages=get_pagination_page_array(page, num_pages),
+    )
+
+
 @app.route("/iot")
 def iot():
     return flask.render_template(
