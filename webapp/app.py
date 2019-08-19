@@ -332,3 +332,56 @@ def soc():
         releases=api.certifiedreleases(soc__gte="1")["objects"],
         vendors=api.certifiedmakes(soc__gte="1")["objects"],
     )
+
+
+@app.route("/soc/models")
+def soc_models():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    releases = flask.request.args.getlist("release")
+    vendors = flask.request.args.getlist("vendors")
+
+    models_response = api.certifiedmodels(
+        category="Server SoC",
+        major_release__in=",".join(releases) if releases else None,
+        make__in=",".join(vendors) if vendors else None,
+        make__regex=query,
+        # We should use query instead of make__regex as soon as it's ready
+        # query=query,
+        order_by="make",
+        offset=(int(page) - 1) * 20,
+    )
+    models = models_response["objects"]
+    total = models_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    all_releases = []
+    all_vendors = []
+
+    for release in api.certifiedreleases(soc__gte="1", limit="0")["objects"]:
+        all_releases.append(release["release"])
+
+    for vendor in api.certifiedmakes(soc__gte="1", limit="0")["objects"]:
+        all_vendors.append(vendor["make"])
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "soc/models.html",
+        models=models,
+        query=query,
+        releases=releases,
+        all_releases=sorted(all_releases, reverse=True),
+        vendors=vendors,
+        all_vendors=sorted(all_vendors),
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )
