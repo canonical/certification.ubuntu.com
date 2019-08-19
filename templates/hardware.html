@@ -106,7 +106,7 @@
           <tbody>
             {% for category, devices in release_details.components.items() %}
             <tr>
-              <td style="text-transform: capitalize;" class="title">{{category}}</td>
+              <td class="title">{{ category }}</td>
               <td class="details">
                 {% for device in devices %}
                 <p>
@@ -127,9 +127,9 @@
         <table class="definitions">
           <tbody>
             {% for category, devices in hardware_details.items() %}
-            {% if category != "other" %}
+            {% if category != "Other" %}
             <tr>
-              <td style="text-transform: capitalize;" class="title">
+              <td class="title">
                 {{ category }}
               </td>
               <td class="details">
@@ -146,8 +146,8 @@
             {% endif %}
             {% endfor %}
             <tr>
-              <td style="text-transform: capitalize;" class="title">
-                other
+              <td class="title">
+                Other
               </td>
               <td class="details">
                 {% for device in hardware_details["other"] %}
