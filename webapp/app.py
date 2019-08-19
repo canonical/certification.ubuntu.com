@@ -26,6 +26,11 @@ api = CertificationAPI(
 )
 
 
+@app.route("/")
+def index():
+    return flask.render_template("index.html")
+
+
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
     model_info = api.certifiedmodels(canonical_id=canonical_id, limit=1)[
@@ -85,21 +90,19 @@ def hardware(canonical_id):
                 else:
                     release_details["components"][device_category] = devices
 
-    details = {
-        "id": canonical_id,
-        "name": model_info.get("model"),
-        "vendor": model_info.get("make"),
-        "major_release": model_info.get("major_release"),
-        "hardware_details": hardware_details,
-        "release_details": release_details,
-    }
-
-    return flask.render_template("hardware.html", details=details)
-
-
-@app.route("/")
-def index():
-    return flask.render_template("index.html")
+    return flask.render_template(
+        "hardware.html",
+        canonical_id=canonical_id,
+        name=model_info.get("model"),
+        vendor=model_info.get("make"),
+        major_release=model_info.get("major_release"),
+        hardware_details=hardware_details,
+        release_details=release_details,
+        # Only show the first 5 components
+        components=api.componentsummaries(canonical_id=canonical_id)[
+            "objects"
+        ][:5],
+    )
 
 
 @app.route("/desktop")
@@ -384,4 +387,69 @@ def soc_models():
         query_string="&".join(query_items),
         page=page,
         pages=get_pagination_page_array(page, num_pages),
+    )
+
+
+@app.route("/components")
+def components():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    vendors = flask.request.args.getlist("vendor")
+
+    components_response = api.componentsummaries(
+        vendor_name__in=",".join(vendors) if vendors else None,
+        # We should use query instead of make__regex as soon as it's ready
+        # query=query,
+        model__regex=query,
+        offset=(int(page) - 1) * 20,
+    )
+    components = components_response["objects"]
+    total = components_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    all_vendors = ["AMD", "Lenovo", "nVidia"]
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "components/index.html",
+        components=components,
+        query=query,
+        vendors=vendors,
+        all_vendors=sorted(all_vendors),
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )
+
+
+@app.route("/components/<id>")
+def component_details(id):
+    component = api.componentsummary(id)
+
+    all_machines = api.certifiedmodels(
+        canonical_id__in=component["machine_canonical_ids"]
+    )["objects"]
+
+    machines_by_id = {}
+
+    for machine in all_machines:
+        if machine["canonical_id"] not in machines_by_id:
+            machines_by_id[machine["canonical_id"]] = machine
+
+    machines = machines_by_id.values()
+
+    return flask.render_template(
+        "components/details.html",
+        component=component,
+        machines=sorted(
+            machines, key=lambda machine: machine["canonical_id"], reverse=True
+        ),
     )
