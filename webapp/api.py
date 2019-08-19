@@ -118,9 +118,17 @@ class CertificationAPI:
             },
         ).json()
 
-    def componentsummaries(self, limit=None, offset=None):
+    def componentsummaries(
+        self, limit=None, offset=None, vendor_name__in=None, model__regex=None
+    ):
         return self._get(
-            "componentsummaries", params={"limit": limit, "offset": offset}
+            "componentsummaries",
+            params={
+                "limit": limit,
+                "offset": offset,
+                "vendor_name__in": vendor_name__in,
+                "model__regex": model__regex,
+            },
         ).json()
 
     def devicecategories(self, limit=None, offset=None):

@@ -26,6 +26,11 @@ api = CertificationAPI(
 )
 
 
+@app.route("/")
+def index():
+    return flask.render_template("index.html")
+
+
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
     model_info = api.certifiedmodels(canonical_id=canonical_id, limit=1)[
@@ -95,11 +100,6 @@ def hardware(canonical_id):
     }
 
     return flask.render_template("hardware.html", details=details)
-
-
-@app.route("/")
-def index():
-    return flask.render_template("index.html")
 
 
 @app.route("/desktop")
@@ -378,6 +378,46 @@ def soc_models():
         query=query,
         releases=releases,
         all_releases=sorted(all_releases, reverse=True),
+        vendors=vendors,
+        all_vendors=sorted(all_vendors),
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )
+
+
+@app.route("/components")
+def components():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    vendors = flask.request.args.getlist("vendor")
+
+    components_response = api.componentsummaries(
+        vendor_name__in=",".join(vendors) if vendors else None,
+        # We should use query instead of make__regex as soon as it's ready
+        # query=query,
+        model__regex=query,
+        offset=(int(page) - 1) * 20,
+    )
+    components = components_response["objects"]
+    total = components_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    all_vendors = ["AMD", "Lenovo", "nVidia"]
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "components.html",
+        components=components,
+        query=query,
         vendors=vendors,
         all_vendors=sorted(all_vendors),
         total=total,
