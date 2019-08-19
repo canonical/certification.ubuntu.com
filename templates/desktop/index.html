@@ -78,7 +78,7 @@
         <tr>
           <td>
             <a
-              href="/desktop/models/?category=Desktop&amp;category=Laptop&amp;vendors={{
+              href="/desktop/modelscategory=Desktop&amp;category=Laptop&amp;vendors={{
                 vendor.make
               }}"
               >{{ vendor.make }}</a
@@ -87,7 +87,7 @@
           <td>
             {% if vendor.desktops == "0" %} - {% else %}
             <a
-              href="/desktop/models/?category=Desktop&amp;vendors={{
+              href="/desktop/models?category=Desktop&amp;vendors={{
                 vendor.make
               }}"
             >
@@ -98,7 +98,7 @@
           <td>
             {% if vendor.laptops == "0" %} - {% else %}
             <a
-              href="/desktop/models/?category=Laptop&amp;vendors={{
+              href="/desktop/models?category=Laptop&amp;vendors={{
                 vendor.make
               }}"
             >
@@ -127,7 +127,7 @@
         <tr>
           <td>
             <a
-              href="/desktop/models/?release={{
+              href="/desktop/models?release={{
                 release.release
               }}&amp;category=Desktop&amp;category=Laptop"
               >{{ release.release }}</a
@@ -136,7 +136,7 @@
           <td>
             {% if release.desktops== "0" %} - {% else %}
             <a
-              href="/desktop/models/?release={{
+              href="/desktop/models?release={{
                 release.release
               }}&amp;category=Desktop"
             >
@@ -147,7 +147,7 @@
           <td>
             {% if release.laptops == "0" %} - {% else %}
             <a
-              href="/desktop/models/?release={{
+              href="/desktop/models?release={{
                 release.release
               }}&amp;category=Laptop"
             >

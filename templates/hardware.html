@@ -6,14 +6,14 @@
 <nav role="navigation" class="nav-secondary clearfix">
   <ul class="breadcrumb">
     <li>
-      <a href="/desktop/">
+      <a href="/desktop">
         Ubuntu Desktop
       </a>
     </li>
     <li>&nbsp;›</li>
 
     <li>
-      <a href="https://certification.ubuntu.com/desktop/models/?category=Desktop">
+      <a href="/desktop/models?category=Desktop">
         Search Results
       </a>
     </li>
@@ -110,7 +110,7 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}">
                     {{ device.name }}
                   </a>
                   </a>
@@ -135,7 +135,7 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}">
                     {{ device.name }}
                   </a>
                 </p>
@@ -152,7 +152,7 @@
               <td class="details">
                 {% for device in hardware_details["other"] %}
                 <p>
-                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}/">
+                  <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}">
                     {{ device.name }}
                   </a>
                 </p>

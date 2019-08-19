@@ -82,7 +82,7 @@
             {% for machine in machines %}
               <tr>
                 <td>
-                  <a href="/hardware/{{ machine.canonical_id }}/">{{ machine.canonical_id }}</a> {{ machine.make }} {{ machine.model }}</td>
+                  <a href="/hardware/{{ machine.canonical_id }}">{{ machine.canonical_id }}</a> {{ machine.make }} {{ machine.model }}</td>
               </tr>
             {% endfor %}
           </tbody>
