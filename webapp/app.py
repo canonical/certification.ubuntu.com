@@ -53,13 +53,13 @@ def hardware(canonical_id):
         }
 
         category = device["category"]
-        if category != "BIOS":
-            category = category.lower()
+        if category not in ["BIOS", "USB"]:
+            category = category.capitalize()
 
-        if category in hardware_details:
-            hardware_details[category].append(device_info)
-        else:
-            hardware_details[category] = [device_info]
+        if category not in hardware_details:
+            hardware_details[category] = []
+
+        hardware_details[category].append(device_info)
 
     release_details = {"components": {}, "releases": []}
 
@@ -85,10 +85,12 @@ def hardware(canonical_id):
                 in ["video", "processor", "network", "wireless"]
                 and devices
             ):
-                if device_category in release_details["components"]:
-                    release_details["components"][device_category] += devices
-                else:
-                    release_details["components"][device_category] = devices
+                device_category = device_category.capitalize()
+
+                if device_category not in release_details["components"]:
+                    release_details["components"][device_category] = []
+
+                release_details["components"][device_category] = devices
 
     return flask.render_template(
         "hardware.html",
