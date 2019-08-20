@@ -145,12 +145,13 @@
             </tr>
             {% endif %}
             {% endfor %}
+            {% if "Other" in hardware_details and hardware_details["Other"] %}
             <tr>
               <td class="title">
                 Other
               </td>
               <td class="details">
-                {% for device in hardware_details["other"] %}
+                {% for device in hardware_details["Other"] %}
                 <p>
                   <a href="/catalog/component/{{ device.bus }}/{{ device.identifier }}">
                     {{ device.name }}
@@ -160,6 +161,7 @@
                 {% endfor %}
               </td>
             </tr>
+            {% endif %}
           </tbody>
         </table>
       </div>
