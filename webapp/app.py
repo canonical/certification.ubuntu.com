@@ -144,10 +144,8 @@ def desktop_models():
         level=level,
         category__in=",".join(categories),
         major_release__in=",".join(releases) if releases else None,
-        make__in=",".join(vendors) if vendors else None,
-        make__regex=query,
-        # We should use query instead of make__regex as soon as it's ready
-        # query=query,
+        vendor=vendors,
+        query=query,
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -216,10 +214,8 @@ def server_models():
     models_response = api.certifiedmodels(
         category="Server",
         major_release__in=",".join(releases) if releases else None,
-        make__in=",".join(vendors) if vendors else None,
-        make__regex=query,
-        # We should use query instead of make__regex as soon as it's ready
-        # query=query,
+        vendor=vendors,
+        query=query,
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -284,10 +280,8 @@ def iot_models():
         level=level,
         category="Ubuntu Core",
         major_release__in=",".join(releases) if releases else None,
-        make__in=",".join(vendors) if vendors else None,
-        make__regex=query,
-        # We should use query instead of make__regex as soon as it's ready
-        # query=query,
+        vendor=vendors,
+        query=query,
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -346,10 +340,8 @@ def soc_models():
     models_response = api.certifiedmodels(
         category="Server SoC",
         major_release__in=",".join(releases) if releases else None,
-        make__in=",".join(vendors) if vendors else None,
-        make__regex=query,
-        # We should use query instead of make__regex as soon as it's ready
-        # query=query,
+        vendor=vendors,
+        query=query,
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
@@ -395,11 +387,7 @@ def components():
     vendors = flask.request.args.getlist("vendor")
 
     components_response = api.componentsummaries(
-        vendor_name__in=",".join(vendors) if vendors else None,
-        # We should use query instead of make__regex as soon as it's ready
-        # query=query,
-        model__regex=query,
-        offset=(int(page) - 1) * 20,
+        make=vendors, query=query, offset=(int(page) - 1) * 20
     )
     components = components_response["objects"]
     total = components_response["meta"]["total_count"]

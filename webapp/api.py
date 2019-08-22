@@ -56,10 +56,9 @@ class CertificationAPI:
         canonical_id=None,
         canonical_id__in=None,
         major_release__in=None,
-        make__in=None,
+        vendor=None,
+        query=None,
         category__in=None,
-        model__regex=None,
-        make__regex=None,
         order_by=None,
     ):
         response = self._get(
@@ -69,13 +68,12 @@ class CertificationAPI:
                 "offset": offset,
                 "level": level,
                 "major_release__in": major_release__in,
-                "make__in": make__in,
+                "vendor": vendor,
+                "query": query,
                 "canonical_id": canonical_id,
                 "canonical_id__in": canonical_id__in,
                 "category": category,
                 "category__in": category__in,
-                "model__regex": model__regex,
-                "make__regex": make__regex,
                 "order_by": order_by,
             },
         )
@@ -126,8 +124,8 @@ class CertificationAPI:
         offset=None,
         id=None,
         canonical_id=None,
-        vendor_name__in=None,
-        model__regex=None,
+        query=None,
+        make=None,
     ):
         return self._get(
             "componentsummaries",
@@ -136,8 +134,8 @@ class CertificationAPI:
                 "offset": offset,
                 "id": id,
                 "canonical_id": canonical_id,
-                "vendor_name__in": vendor_name__in,
-                "model__regex": model__regex,
+                "query": query,
+                "make": make,
             },
         ).json()
 
