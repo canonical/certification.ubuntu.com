@@ -11,14 +11,14 @@
     <form id="sidebar-search" method="get" class="body-search">
       <fieldset>
         <div id="search">
-          <input id="id_query" type="text" name="query" value="" placeholder="search" maxlength="200" />
+          <input id="id_query" type="text" name="query" value="{{ query }}" placeholder="search" maxlength="200" />
         </div>
         <div id="filter">
           <ul>
             {% for vendor in all_vendors %}
               <li>
-                <input type="checkbox" id="vendor" name="vendor" value="{{ vendor }}" {{ "checked" if vendor in vendors }}>
-                <label for="vendor">{{ vendor }}</label>
+                <input type="checkbox" id="vendor_{{ loop.index }}" name="vendor" value="{{ vendor }}" {{ "checked" if vendor in vendors }}>
+                <label for="vendor_{{ loop.index }}">{{ vendor }}</label>
               </li>
             {% endfor %}
           </ul>
