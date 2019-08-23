@@ -22,7 +22,7 @@ app = FlaskBase(
 
 api = CertificationAPI(
     base_url="https://certification.canonical.com/api/v1",
-    session=CachedSession(),
+    session=CachedSession(timeout=5),
 )
 
 
