@@ -33,9 +33,7 @@ def index():
 
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
-    model_info = api.certifiedmodels(canonical_id=canonical_id, limit=1)[
-        "objects"
-    ][0]
+    models = api.certifiedmodels(canonical_id=canonical_id)["objects"]
     model_devices = api.certifiedmodeldevices(
         canonical_id=canonical_id, limit="0"
     )["objects"]
@@ -65,11 +63,10 @@ def hardware(canonical_id):
 
     for model_release in model_releases:
         ubuntu_version = model_release["certified_release"]
-        arch = ""
-        if model_release["architecture"] == "amd64":
+        arch = model_release["architecture"]
+
+        if arch == "amd64":
             arch = "64 Bit"
-        else:
-            arch = "32 Bit"
 
         release_info = {
             "name": f"Ubuntu {ubuntu_version} {arch}",
@@ -92,12 +89,15 @@ def hardware(canonical_id):
 
                 release_details["components"][device_category] = devices
 
+    # Build model name
+    model_names = [model["model"] for model in models]
+
     return flask.render_template(
         "hardware.html",
         canonical_id=canonical_id,
-        name=model_info.get("model"),
-        vendor=model_info.get("make"),
-        major_release=model_info.get("major_release"),
+        name=", ".join(model_names),
+        vendor=models[0]["make"],
+        major_release=models[0]["major_release"],
         hardware_details=hardware_details,
         release_details=release_details,
         # Only show the first 5 components
