@@ -72,32 +72,32 @@
 
         <div id="releases">
           {% for release in release_details.releases %}
-          <div class="release box">
-            <h3 class="enabled">
-              {{ release.name }}
-            </h3>
+            <div class="release box">
+              <h3 class="enabled">
+                {{ release.name }}
+              </h3>
 
-            <p class="availability">Pre-installed by manufacturer</p>
+              <p class="availability">Pre-installed by manufacturer</p>
 
-            <h4 id="testing-details">Testing details</h4>
-            <p>
-              This system was tested with {{ release.version }}, running the
-              {{ release.kernel }} kernel.
-            </p>
-            <p></p>
-            <h4>Certification notes</h4>
+              <h4 id="testing-details">Testing details</h4>
+              <p>
+                This system was tested with {{ release.version }}, running the
+                {{ release.kernel }} kernel.
+              </p>
+              <p></p>
+              <h4>Certification notes</h4>
 
-            <p>There are no notes for this release.</p>
+              <p>There are no notes for this release.</p>
 
-            {% if release.bios %}
-            <dl id="bios-list">
-              <dt>BIOS</dt>
-              <dd>{{ release.bios }}</dd>
-            </dl>
-            {% endif %}
-          </div>
+              {% if release.bios %}
+                <dl id="bios-list">
+                  <dt>BIOS</dt>
+                  <dd>{{ release.bios }}</dd>
+                </dl>
+              {% endif %}
+            </div>
+          {% endfor %}
         </div>
-        {% endfor %}
 
         <h2>Hardware summary</h2>
         <p>This system was tested with these key components:</p>
