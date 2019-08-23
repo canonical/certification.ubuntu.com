@@ -72,6 +72,7 @@ def hardware(canonical_id):
             "name": f"Ubuntu {ubuntu_version} {arch}",
             "kernel": model_release["kernel_version"],
             "bios": model_release["bios"],
+            "level": model_release["level"],
             "version": ubuntu_version,
         }
         release_details["releases"].append(release_info)
@@ -96,6 +97,7 @@ def hardware(canonical_id):
         "hardware.html",
         canonical_id=canonical_id,
         name=", ".join(model_names),
+        category=models[0]["category"],
         vendor=models[0]["make"],
         major_release=models[0]["major_release"],
         hardware_details=hardware_details,

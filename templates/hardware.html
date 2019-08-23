@@ -77,7 +77,13 @@
                 {{ release.name }}
               </h3>
 
-              <p class="availability">Pre-installed by manufacturer</p>
+              {% if category != "Ubuntu Core" %}
+                {% if release.level == "Certified" %}
+                <p class="availability">Available from ubuntu.com</p>
+                {% elif release.level == "Enabled" %}
+                <p class="availability">Pre-installed by manufacturer</p>
+                {% endif %}
+              {% endif %}
 
               <h4 id="testing-details">Testing details</h4>
               <p>
