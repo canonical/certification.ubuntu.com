@@ -4,5 +4,5 @@ Flask==1.1.1
 python-frontmatter==0.4.5
 mistune==0.8.4
 bleach==3.1.0
-talisker[gunicorn]==0.15.0
+talisker[gunicorn,prometheus]==0.15.0
 
