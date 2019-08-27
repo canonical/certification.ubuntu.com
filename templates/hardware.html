@@ -1,6 +1,6 @@
 {% extends '_layout.html' %}
 
-{% block title %}Ubuntu on {{ vendor }}<span class="grey"> {{ name }}{% endblock %}
+{% block title %}Ubuntu on {{ vendor }} {{ name }}{% endblock %}
 
 {% block content %}
 <nav role="navigation" class="nav-secondary clearfix">
@@ -49,55 +49,59 @@
     <div class="nine-col  last-col device">
       <div class="row row-hero" id="hardware-detail">
         <p class="large">
-          The <strong>{{ vendor }} {{ name }}</strong> desktop
+          The <strong>{{ vendor }} {{ name }}</strong> {{ category.lower() }}
           with the components described below has been awarded the status of
-          certified pre-install for Ubuntu.
+          certified {% if has_enabled_releases %}pre-install {% endif %}for Ubuntu.
         </p>
 
-        <h3><strong>Please note that for pre-installed systems:</strong></h3>
-        <ol>
-          <li>
-            The system is available in some regions with a special image of
-            Ubuntu pre-installed by the manufacturer. It takes advantage of the
-            hardware features for this system and may include additional
-            software. You should check when buying the system whether this is an
-            option.
-          </li>
-          <li>
-            Standard images of Ubuntu may not work at all on the system or may
-            not work well, though Canonical and computer manufacturers will try
-            to certify the system with future standard releases of Ubuntu.
-          </li>
-        </ol>
+        {% if has_enabled_releases %}
+          <h3><strong>Please note that for pre-installed systems:</strong></h3>
+          <ol>
+            <li>
+              The system is available in some regions with a special image of
+              Ubuntu pre-installed by the manufacturer. It takes advantage of the
+              hardware features for this system and may include additional
+              software. You should check when buying the system whether this is an
+              option.
+            </li>
+            <li>
+              Standard images of Ubuntu may not work at all on the system or may
+              not work well, though Canonical and computer manufacturers will try
+              to certify the system with future standard releases of Ubuntu.
+            </li>
+          </ol>
+        {% endif %}
 
         <div id="releases">
           {% for release in release_details.releases %}
-          <div class="release box">
-            <h3 class="enabled">
-              {{ release.name }}
-            </h3>
+            <div class="release box">
+              <h3 class="enabled">
+                {{ release.name }}
+              </h3>
 
-            <p class="availability">Pre-installed by manufacturer</p>
+              {% if category != "Ubuntu Core" and release.level == "Enabled" %}
+                <p class="availability">Pre-installed by manufacturer</p>
+              {% endif %}
 
-            <h4 id="testing-details">Testing details</h4>
-            <p>
-              This system was tested with {{ release.version }}, running the
-              {{ release.kernel }} kernel.
-            </p>
-            <p></p>
-            <h4>Certification notes</h4>
+              <h4 id="testing-details">Testing details</h4>
+              <p>
+                This system was tested with {{ release.version }}, running the
+                {{ release.kernel }} kernel.
+              </p>
+              <p></p>
+              <h4>Certification notes</h4>
 
-            <p>There are no notes for this release.</p>
+              <p>There are no notes for this release.</p>
 
-            {% if release.bios %}
-            <dl id="bios-list">
-              <dt>BIOS</dt>
-              <dd>{{ release.bios }}</dd>
-            </dl>
-            {% endif %}
-          </div>
+              {% if release.bios %}
+                <dl id="bios-list">
+                  <dt>BIOS</dt>
+                  <dd>{{ release.bios }}</dd>
+                </dl>
+              {% endif %}
+            </div>
+          {% endfor %}
         </div>
-        {% endfor %}
 
         <h2>Hardware summary</h2>
         <p>This system was tested with these key components:</p>

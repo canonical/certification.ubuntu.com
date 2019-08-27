@@ -22,7 +22,7 @@ app = FlaskBase(
 
 api = CertificationAPI(
     base_url="https://certification.canonical.com/api/v1",
-    session=CachedSession(),
+    session=CachedSession(timeout=5),
 )
 
 
@@ -33,9 +33,11 @@ def index():
 
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
-    model_info = api.certifiedmodels(canonical_id=canonical_id, limit=1)[
-        "objects"
-    ][0]
+    models = api.certifiedmodels(canonical_id=canonical_id)["objects"]
+
+    if not models:
+        flask.abort(404)
+
     model_devices = api.certifiedmodeldevices(
         canonical_id=canonical_id, limit="0"
     )["objects"]
@@ -62,21 +64,26 @@ def hardware(canonical_id):
         hardware_details[category].append(device_info)
 
     release_details = {"components": {}, "releases": []}
+    has_enabled_releases = False
 
     for model_release in model_releases:
         ubuntu_version = model_release["certified_release"]
-        arch = ""
-        if model_release["architecture"] == "amd64":
+        arch = model_release["architecture"]
+
+        if arch == "amd64":
             arch = "64 Bit"
-        else:
-            arch = "32 Bit"
 
         release_info = {
             "name": f"Ubuntu {ubuntu_version} {arch}",
             "kernel": model_release["kernel_version"],
             "bios": model_release["bios"],
+            "level": model_release["level"],
             "version": ubuntu_version,
         }
+
+        if release_info["level"] == "Enabled":
+            has_enabled_releases = True
+
         release_details["releases"].append(release_info)
 
         for device_category, devices in model_release.items():
@@ -92,14 +99,19 @@ def hardware(canonical_id):
 
                 release_details["components"][device_category] = devices
 
+    # Build model name
+    model_names = [model["model"] for model in models]
+
     return flask.render_template(
         "hardware.html",
         canonical_id=canonical_id,
-        name=model_info.get("model"),
-        vendor=model_info.get("make"),
-        major_release=model_info.get("major_release"),
+        name=", ".join(model_names),
+        category=models[0]["category"],
+        vendor=models[0]["make"],
+        major_release=models[0]["major_release"],
         hardware_details=hardware_details,
         release_details=release_details,
+        has_enabled_releases=has_enabled_releases,
         # Only show the first 5 components
         components=api.componentsummaries(canonical_id=canonical_id)[
             "objects"
