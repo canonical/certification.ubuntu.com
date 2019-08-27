@@ -103,11 +103,16 @@ def hardware(canonical_id):
     # Build model name
     model_names = [model["model"] for model in models]
 
+    category = models[0]["category"]
+    # default to category, which contains the least specific form_factor
+    form_factor = model_release and model_release.get("form_factor", category)
+
     return flask.render_template(
         "hardware.html",
         canonical_id=canonical_id,
         name=", ".join(model_names),
-        category=models[0]["category"],
+        category=category,
+        form_factor=form_factor,
         vendor=models[0]["make"],
         major_release=models[0]["major_release"],
         hardware_details=hardware_details,
