@@ -79,9 +79,16 @@
                 {{ release.name }}
               </h3>
 
-              {% if category != "Ubuntu Core" and release.level == "Enabled" %}
+              {% if release.level == "Enabled" %}
                 <p class="availability">Pre-installed by manufacturer</p>
+              {% else %}
+                <p class="availability">Available from ubuntu.com</p>
               {% endif %}
+
+              {% if release.download_url %}
+              <p><a href="{{ release.download_url }}" id="download-url" class="button--primary link-cta-ubuntu cta-large">Download</a></p>
+              {% endif %}
+
 
               <h4 id="testing-details">Testing details</h4>
               <p>

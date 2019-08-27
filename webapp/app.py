@@ -8,7 +8,7 @@ from canonicalwebteam.http import CachedSession
 
 # Local
 from webapp.api import CertificationAPI
-from webapp.helpers import get_pagination_page_array
+from webapp.helpers import get_download_url, get_pagination_page_array
 
 
 app = FlaskBase(
@@ -79,6 +79,7 @@ def hardware(canonical_id):
             "bios": model_release["bios"],
             "level": model_release["level"],
             "version": ubuntu_version,
+            "download_url": get_download_url(models[0], model_release),
         }
 
         if release_info["level"] == "Enabled":
