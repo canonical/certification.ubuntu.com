@@ -34,6 +34,10 @@ def index():
 @app.route("/hardware/<canonical_id>")
 def hardware(canonical_id):
     models = api.certifiedmodels(canonical_id=canonical_id)["objects"]
+
+    if not models:
+        flask.abort(404)
+
     model_devices = api.certifiedmodeldevices(
         canonical_id=canonical_id, limit="0"
     )["objects"]
