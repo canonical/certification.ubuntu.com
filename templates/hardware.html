@@ -49,26 +49,28 @@
     <div class="nine-col  last-col device">
       <div class="row row-hero" id="hardware-detail">
         <p class="large">
-          The <strong>{{ vendor }} {{ name }}</strong> desktop
+          The <strong>{{ vendor }} {{ name }}</strong> {{ category.lower() }}
           with the components described below has been awarded the status of
-          certified pre-install for Ubuntu.
+          certified {% if has_enabled_releases %}pre-install {% endif %}for Ubuntu.
         </p>
 
-        <h3><strong>Please note that for pre-installed systems:</strong></h3>
-        <ol>
-          <li>
-            The system is available in some regions with a special image of
-            Ubuntu pre-installed by the manufacturer. It takes advantage of the
-            hardware features for this system and may include additional
-            software. You should check when buying the system whether this is an
-            option.
-          </li>
-          <li>
-            Standard images of Ubuntu may not work at all on the system or may
-            not work well, though Canonical and computer manufacturers will try
-            to certify the system with future standard releases of Ubuntu.
-          </li>
-        </ol>
+        {% if has_enabled_releases %}
+          <h3><strong>Please note that for pre-installed systems:</strong></h3>
+          <ol>
+            <li>
+              The system is available in some regions with a special image of
+              Ubuntu pre-installed by the manufacturer. It takes advantage of the
+              hardware features for this system and may include additional
+              software. You should check when buying the system whether this is an
+              option.
+            </li>
+            <li>
+              Standard images of Ubuntu may not work at all on the system or may
+              not work well, though Canonical and computer manufacturers will try
+              to certify the system with future standard releases of Ubuntu.
+            </li>
+          </ol>
+        {% endif %}
 
         <div id="releases">
           {% for release in release_details.releases %}

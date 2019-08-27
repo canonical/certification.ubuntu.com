@@ -60,6 +60,7 @@ def hardware(canonical_id):
         hardware_details[category].append(device_info)
 
     release_details = {"components": {}, "releases": []}
+    has_enabled_releases = False
 
     for model_release in model_releases:
         ubuntu_version = model_release["certified_release"]
@@ -75,6 +76,10 @@ def hardware(canonical_id):
             "level": model_release["level"],
             "version": ubuntu_version,
         }
+
+        if release_info["level"] == "Enabled":
+            has_enabled_releases = True
+
         release_details["releases"].append(release_info)
 
         for device_category, devices in model_release.items():
@@ -102,6 +107,7 @@ def hardware(canonical_id):
         major_release=models[0]["major_release"],
         hardware_details=hardware_details,
         release_details=release_details,
+        has_enabled_releases=has_enabled_releases,
         # Only show the first 5 components
         components=api.componentsummaries(canonical_id=canonical_id)[
             "objects"
