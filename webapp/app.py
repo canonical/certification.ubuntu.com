@@ -402,10 +402,14 @@ def soc_models():
 def components():
     query = flask.request.args.get("query") or ""
     page = int(flask.request.args.get("page") or "1")
+    canonical_id = flask.request.args.get("canonical_id")
     vendors = flask.request.args.getlist("vendor")
 
     components_response = api.componentsummaries(
-        make=vendors, query=query, offset=(int(page) - 1) * 20
+        make=vendors,
+        query=query,
+        offset=(int(page) - 1) * 20,
+        canonical_id=canonical_id,
     )
     components = components_response["objects"]
     total = components_response["meta"]["total_count"]
