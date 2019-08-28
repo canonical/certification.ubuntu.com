@@ -94,7 +94,7 @@ class CertificationAPI:
         ).json()
 
     def certifiedmodeldevices(
-        self, limit=None, offset=None, canonical_id=None
+        self, limit=None, offset=None, canonical_id=None, identifier=None
     ):
         return self._get(
             "certifiedmodeldevices",
@@ -102,6 +102,7 @@ class CertificationAPI:
                 "limit": limit,
                 "offset": offset,
                 "canonical_id": canonical_id,
+                "identifier": identifier,
             },
         ).json()
 
