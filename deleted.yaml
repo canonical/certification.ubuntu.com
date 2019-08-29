@@ -1,1 +1,1 @@
-catalog(/.*)?:
+catalog/(search|category|makes?)(/.*)?:

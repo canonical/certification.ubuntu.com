@@ -461,3 +461,37 @@ def component_details(id):
             machines, key=lambda machine: machine["canonical_id"], reverse=True
         ),
     )
+
+
+@app.route("/catalog/component/<identifier>")
+@app.route("/catalog/component/<subsystem>/<identifier>")
+def catalog_component(identifier, subsystem=None):
+    page = int(flask.request.args.get("page") or "1")
+
+    devices = api.certifiedmodeldevices(
+        identifier=identifier, subsystem=subsystem, limit=0
+    )["objects"]
+
+    if not devices:
+        flask.abort(404)
+
+    canonical_ids = [device["canonical_id"] for device in devices]
+
+    # Only get the first 267 canonical_ids, as the URL will be too long
+    # otherwise
+    models_response = api.certifiedmodels(
+        canonical_id__in=",".join(canonical_ids[:267]),
+        offset=(int(page) - 1) * 20,
+    )
+    models = models_response["objects"]
+    total = models_response["meta"]["total_count"]
+    num_pages = math.ceil(total / 20)
+
+    return flask.render_template(
+        "catalog/component.html",
+        device=devices[0],
+        models=models,
+        total=total,
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )

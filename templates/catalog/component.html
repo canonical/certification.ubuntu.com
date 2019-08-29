@@ -1,0 +1,58 @@
+{% extends '_layout.html' %}
+
+{% block title%}{{ device.name }} {{ device.category.capitalize() }}{% endblock %}
+
+{% block content %}
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>{{ device.name }} <span class="grey">{{ device.category.capitalize() }}</span></h1>
+  </div>
+  <div class="main">
+    <p class="large">
+      The <strong>{{ device.name }}</strong> is under the <strong>{{ device.category.capitalize() }}</strong>
+      category and is contained in the certified systems below.
+    </p>
+    {% if total > 0 %}
+    <div id="models" class="models">
+      <div class="pagination">
+        <div class="three-col">
+          <p>{{ total }} results</p>
+        </div>
+        <div class="six-col right last-col">
+          <p class="right">
+            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+            {% include "_pagination.html" %}
+            {% endwith %}
+          </p>
+        </div>
+      </div>
+      <ul class="model-list">
+        {% for model in models %}
+        <li class="model enabled">
+          <p>
+            {{ model.make }}
+            <a href="/hardware/{{ model.canonical_id }}">{{ model.model }}</a> {{ model.category }}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <div class="pagination">
+        <div class="three-col">
+          <p>{{ total }} results</p>
+        </div>
+        <div class="six-col right last-col">
+          <p class="right">
+            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+            {% include "_pagination.html" %}
+            {% endwith %}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
