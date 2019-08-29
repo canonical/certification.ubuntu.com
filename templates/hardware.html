@@ -121,7 +121,7 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  {{ device.name }}
+                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
                 {% endfor %}
@@ -144,7 +144,7 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  {{ device.name }}
+                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
 
@@ -161,7 +161,7 @@
               <td class="details">
                 {% for device in hardware_details["Other"] %}
                 <p>
-                  {{ device.name }}
+                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
 
