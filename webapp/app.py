@@ -49,7 +49,10 @@ def hardware(canonical_id):
 
     for device in model_devices:
         device_info = {
-            "name": f"{device['make']} {device['name']}",
+            "name": (
+                f"{device['make']} {device['name']}"
+                f" {device['subproduct_name']}"
+            ),
             "bus": device["bus"],
             "identifier": device["identifier"],
         }
@@ -96,10 +99,20 @@ def hardware(canonical_id):
             ):
                 device_category = device_category.capitalize()
 
-                if device_category not in release_details["components"]:
-                    release_details["components"][device_category] = []
+                release_details["components"][device_category] = []
 
-                release_details["components"][device_category] = devices
+                if device_category in release_details["components"]:
+                    for device in devices:
+                        release_details["components"][device_category].append(
+                            {
+                                "name": (
+                                    f"{device['make']} {device['name']}"
+                                    f" {device['subproduct_name']}"
+                                ),
+                                "bus": device["bus"],
+                                "identifier": device["identifier"],
+                            }
+                        )
 
     # Build model name
     model_names = [model["model"] for model in models]
