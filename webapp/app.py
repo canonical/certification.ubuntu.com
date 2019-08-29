@@ -476,8 +476,11 @@ def catalog_component(identifier):
 
     canonical_ids = [device["canonical_id"] for device in devices]
 
+    # Only get the first 267 canonical_ids, as the URL will be too long
+    # otherwise
     models_response = api.certifiedmodels(
-        canonical_id__in=",".join(canonical_ids), offset=(int(page) - 1) * 20
+        canonical_id__in=",".join(canonical_ids[:267]),
+        offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
     total = models_response["meta"]["total_count"]

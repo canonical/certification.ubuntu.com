@@ -121,7 +121,12 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% if "/" not in device.identifier %}
+                    {# / breaks the component URLs #}
+                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% else %}
+                    {{ device.name }}
+                  {% endif %}
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
                 {% endfor %}
@@ -144,7 +149,12 @@
               <td class="details">
                 {% for device in devices %}
                 <p>
-                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% if "/" not in device.identifier %}
+                    {# / breaks the component URLs #}
+                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% else %}
+                    {{ device.name }}
+                  {% endif %}
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
 
@@ -161,7 +171,12 @@
               <td class="details">
                 {% for device in hardware_details["Other"] %}
                 <p>
-                  <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% if "/" not in device.identifier %}
+                    {# / breaks the component URLs #}
+                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                  {% else %}
+                    {{ device.name }}
+                  {% endif %}
                   {% if device.bus in ["usb", "pci"] %}({{ device.identifier }}){% endif %}
                 </p>
 
