@@ -464,12 +464,13 @@ def component_details(id):
 
 
 @app.route("/catalog/component/<identifier>")
-def catalog_component(identifier):
+@app.route("/catalog/component/<subsystem>/<identifier>")
+def catalog_component(identifier, subsystem=None):
     page = int(flask.request.args.get("page") or "1")
 
-    devices = api.certifiedmodeldevices(identifier=identifier, limit=0)[
-        "objects"
-    ]
+    devices = api.certifiedmodeldevices(
+        identifier=identifier, subsystem=subsystem, limit=0
+    )["objects"]
 
     if not devices:
         flask.abort(404)

@@ -1,4 +1,6 @@
 components/hardware/(?P<canonical_id>[^/]+)/?: /components?canonical_id={canonical_id}
 certification: /
 certification/(?P<path>.+): /{path}
-catalog/component/[^/]+/([^/]+/)?(?P<identifier>[^/]+)/?: /catalog/component/{identifier}
+catalog/component/\w+/(?P<identifier>[^/]+)/?: /catalog/component/{identifier}
+catalog/component/\w+/\d+/(?P<identifier>[^/]+)/?: /catalog/component/{identifier}
+catalog/component/\w+/(?P<subsystem>[^/]*[^\d]+[^/]*)/(?P<identifier>[^/]+)/?: /catalog/component/{subsystem}/{identifier}
