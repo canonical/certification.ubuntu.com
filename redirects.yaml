@@ -1,3 +1,4 @@
 components/hardware/(?P<canonical_id>[^/]+)/?: /components?canonical_id={canonical_id}
 certification: /
 certification/(?P<path>.+): /{path}
+catalog/component/[^/]+/([^/]+/)?(?P<identifier>[^/]+)/?: /catalog/component/{identifier}
