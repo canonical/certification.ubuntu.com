@@ -483,7 +483,7 @@ def catalog_component(identifier, subsystem=None):
     page = int(flask.request.args.get("page") or "1")
 
     devices = api.certifiedmodeldevices(
-        identifier=identifier, subsystem=subsystem, limit=0
+        identifier=identifier.replace("---", "/"), subsystem=subsystem, limit=0
     )["objects"]
 
     if not devices:
