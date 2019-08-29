@@ -78,6 +78,7 @@ def hardware(canonical_id):
             "kernel": model_release["kernel_version"],
             "bios": model_release["bios"],
             "level": model_release["level"],
+            "notes": model_release["notes"],
             "version": ubuntu_version,
             "download_url": get_download_url(models[0], model_release),
         }

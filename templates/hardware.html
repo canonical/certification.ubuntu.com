@@ -98,7 +98,16 @@
               <p></p>
               <h4>Certification notes</h4>
 
-              <p>There are no notes for this release.</p>
+              {% if release.notes %}
+                <dl>
+                  {% for note in release.notes %}
+                    <dt>{{ note.title }}</dt>
+                    <dd><p>{{ note.comment.replace('\r\n\r\n', '</p><p>') | safe }}</p></dd>
+                  {% endfor %}
+                </dl>
+              {% else %}
+                <p>There are no notes for this release.</p>
+              {% endif %}
 
               {% if release.bios %}
                 <dl id="bios-list">
