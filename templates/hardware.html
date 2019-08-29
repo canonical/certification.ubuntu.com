@@ -123,7 +123,11 @@
                 <p>
                   {% if "/" not in device.identifier %}
                     {# / breaks the component URLs #}
-                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% if device.subsystem %}
+                      <a href="/catalog/component/{{ device.subsystem }}/{{ device.identifier }}">{{ device.name }}</a>
+                    {% else %}
+                      <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% endif %}
                   {% else %}
                     {{ device.name }}
                   {% endif %}
@@ -151,7 +155,11 @@
                 <p>
                   {% if "/" not in device.identifier %}
                     {# / breaks the component URLs #}
-                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% if device.subsystem %}
+                      <a href="/catalog/component/{{ device.subsystem }}/{{ device.identifier }}">{{ device.name }}</a>
+                    {% else %}
+                      <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% endif %}
                   {% else %}
                     {{ device.name }}
                   {% endif %}
@@ -173,7 +181,11 @@
                 <p>
                   {% if "/" not in device.identifier %}
                     {# / breaks the component URLs #}
-                    <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% if device.subsystem %}
+                      <a href="/catalog/component/{{ device.subsystem }}/{{ device.identifier }}">{{ device.name }}</a>
+                    {% else %}
+                      <a href="/catalog/component/{{ device.identifier }}">{{ device.name }}</a>
+                    {% endif %}
                   {% else %}
                     {{ device.name }}
                   {% endif %}
