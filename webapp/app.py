@@ -509,3 +509,37 @@ def catalog_component(identifier, subsystem=None):
         page=page,
         pages=get_pagination_page_array(page, num_pages),
     )
+
+
+@app.route("/catalog/search")
+def catalog_search():
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+
+    devices_response = api.certifiedmodeldevices(
+        query=query, offset=(int(page) - 1) * 20
+    )
+
+    devices = devices_response["objects"]
+    total = devices_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+
+    query_items = []
+
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "catalog/search.html",
+        devices=devices,
+        query=query,
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )
