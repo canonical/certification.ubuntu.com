@@ -1,0 +1,71 @@
+{% extends '_layout.html' %}
+
+{% block title%}Component Device Details{% endblock %}
+
+{% block content %}
+<div class="row row-hero no-border">
+  <div class="container-inner title">
+    <h1>Component catalog</h1>
+  </div>
+  <div class="main">
+    <div class="pagination">
+      <div class="three-col">
+        <p>{{ total }} results</p>
+      </div>
+      <div class="six-col right last-col">
+        <p class="right">
+          {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+          {% include "_pagination.html" %}
+          {% endwith %}
+        </p>
+      </div>
+    </div>
+
+    <div class="twelve-col">
+      <table>
+        <thead>
+          <tr>
+            <th>Make</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for device in devices %}
+          <tr>
+            <td>{{ device.make }}</td>
+            <td>
+              <a href="/catalog/component/{{ device.subsystem + '/' if device.subsystem }}{{ device.identifier }}">
+                {{ device.name }} {{ device.subproduct_name }}
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <div class="three-col">
+        <p>{{ total }} results</p>
+      </div>
+      <div class="six-col right last-col">
+        <p class="right">
+          {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+          {% include "_pagination.html" %}
+          {% endwith %}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <form id="sidebar-search" action="/catalog/search/" method="get" class="body-search">
+      <fieldset>
+        <div id="search">
+            <input id="id_query" type="text" name="query" value="{{ query }}" maxlength="200">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -97,6 +97,7 @@ class CertificationAPI:
         self,
         limit=None,
         offset=None,
+        query=None,
         canonical_id=None,
         identifier=None,
         subsystem=None,
@@ -106,6 +107,7 @@ class CertificationAPI:
             params={
                 "limit": limit,
                 "offset": offset,
+                "query": query,
                 "canonical_id": canonical_id,
                 "identifier": identifier,
                 "subsystem": subsystem,
