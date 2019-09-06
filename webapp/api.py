@@ -34,6 +34,7 @@ class CertificationAPI:
         laptops__gte=None,
         smart_core__gte=None,
         soc__gte=None,
+        make=None,
     ):
         return self._get(
             "certifiedmakes",
@@ -44,6 +45,7 @@ class CertificationAPI:
                 "laptops__gte": laptops__gte,
                 "smart_core__gte": smart_core__gte,
                 "soc__gte": soc__gte,
+                "make": make,
             },
         ).json()
 

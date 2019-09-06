@@ -412,6 +412,76 @@ def soc_models():
     )
 
 
+@app.route("/make/<make>")
+def make(make):
+    meta = api.certifiedmakes(limit="0", make=make)["meta"]
+    if meta["total_count"] == 0:
+        flask.abort(404)
+
+    query = flask.request.args.get("query") or ""
+    page = int(flask.request.args.get("page") or "1")
+    level = flask.request.args.get("level") or "Any"
+    categories = flask.request.args.getlist("category") or [
+        "Desktop",
+        "Laptop",
+        "Server",
+        "Server SoC",
+        "Ubuntu Core",
+    ]
+    releases = flask.request.args.getlist("release")
+
+    if level.lower() == "any":
+        level = None
+
+    models_response = api.certifiedmodels(
+        level=level,
+        category__in=",".join(categories),
+        major_release__in=",".join(releases) if releases else None,
+        vendor=make,
+        query=query,
+        offset=(int(page) - 1) * 20,
+    )
+    models = models_response["objects"]
+    total = models_response["meta"]["total_count"]
+
+    num_pages = math.ceil(total / 20)
+
+    all_categories = [
+        "Desktop",
+        "Laptop",
+        "Server",
+        "Server SoC",
+        "Ubuntu Core",
+    ]
+    all_releases = [
+        release["release"]
+        for release in api.certifiedreleases(limit="0")["objects"]
+    ]
+
+    params = flask.request.args.copy()
+    params.pop("page", None)
+    query_items = []
+    for key, valuelist in params.lists():
+        for value in valuelist:
+            query_items.append(f"{key}={value}")
+
+    return flask.render_template(
+        "models.html",
+        make=make,
+        models=models,
+        query=query,
+        level=level,
+        categories=categories,
+        all_categories=all_categories,
+        releases=releases,
+        all_releases=sorted(all_releases, reverse=True),
+        total=total,
+        query_string="&".join(query_items),
+        page=page,
+        pages=get_pagination_page_array(page, num_pages),
+    )
+
+
 @app.route("/models")
 def models():
     """
