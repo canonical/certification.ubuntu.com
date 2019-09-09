@@ -34,7 +34,7 @@ class CertificationAPI:
         laptops__gte=None,
         smart_core__gte=None,
         soc__gte=None,
-        make=None,
+        make__iexact=None,
     ):
         return self._get(
             "certifiedmakes",
@@ -45,7 +45,7 @@ class CertificationAPI:
                 "laptops__gte": laptops__gte,
                 "smart_core__gte": smart_core__gte,
                 "soc__gte": soc__gte,
-                "make": make,
+                "make__iexact": make__iexact,
             },
         ).json()
 
@@ -59,6 +59,7 @@ class CertificationAPI:
         canonical_id__in=None,
         major_release__in=None,
         vendor=None,
+        make__iexact=None,
         query=None,
         category__in=None,
         order_by=None,
@@ -71,6 +72,7 @@ class CertificationAPI:
                 "level": level,
                 "major_release__in": major_release__in,
                 "vendor": vendor,
+                "make__iexact": make__iexact,
                 "query": query,
                 "canonical_id": canonical_id,
                 "canonical_id__in": canonical_id__in,
