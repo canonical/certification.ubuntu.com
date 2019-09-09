@@ -71,6 +71,7 @@
             {% endfor %}
           </ul>
           <p></p>
+          {% if not make %}
           <p><label for="id_vendors_0">Vendor:</label></p>
           <ul id="id_vendors">
             {% for vendor in all_vendors %}
@@ -82,6 +83,7 @@
             {% endfor %}
           </ul>
           <p></p>
+          {% endif %}
 
           <input value="Update" type="submit" />
         </div>
@@ -92,7 +94,7 @@
   <div class="main">
     <div class="nine-col  last-col">
       <p class="large">
-        Canonical works closely with OEMs to certify Ubuntu on a range of
+        Canonical works closely with {{ make|default("OEMs") }} to certify Ubuntu on a range of
         their hardware.
       </p>
       <p>
