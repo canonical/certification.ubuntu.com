@@ -414,7 +414,7 @@ def soc_models():
 
 @app.route("/make/<make>")
 def make(make):
-    meta = api.certifiedmakes(limit="0", make=make)["meta"]
+    meta = api.certifiedmakes(limit="0", make__iexact=make)["meta"]
     if meta["total_count"] == 0:
         flask.abort(404)
 
@@ -437,7 +437,7 @@ def make(make):
         level=level,
         category__in=",".join(categories),
         major_release__in=",".join(releases) if releases else None,
-        vendor=make,
+        make__iexact=make,
         query=query,
         offset=(int(page) - 1) * 20,
     )
