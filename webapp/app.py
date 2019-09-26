@@ -4,8 +4,8 @@ import math
 # Packages
 import flask
 import talisker.requests
+import requests
 from canonicalwebteam.flask_base.app import FlaskBase
-from canonicalwebteam.http import CachedSession
 
 # Local
 from webapp.api import CertificationAPI
@@ -21,7 +21,7 @@ app = FlaskBase(
     template_500="500.html",
 )
 
-session = CachedSession(timeout=5)
+session = requests.Session()
 talisker.requests.configure(session)
 api = CertificationAPI(
     base_url="https://certification.canonical.com/api/v1", session=session
