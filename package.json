@@ -4,8 +4,9 @@
     "watch": "echo 'Nothing to watch'",
     "build": "echo 'Nothing to build'",
     "format-python": "black --line-length 79 webapp",
-    "lint-python": "flake8 webapp && black --check --diff --line-length 79 webapp",
+    "lint-python": "flake8 webapp tests && black --check --line-length 79 webapp tests",
     "serve": "./entrypoint 0.0.0.0:${PORT}",
-    "test": "yarn run lint-python"
+    "test": "yarn run lint-python && yarn run test-python",
+    "test-python": "python3 -m unittest discover tests"
   }
 }
