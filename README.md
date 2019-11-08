@@ -1,6 +1,8 @@
 # Repository for certification.ubuntu.com
 
-[![CircleCI build status](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com.svg?style=shield)](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com) [![Code coverage](https://codecov.io/gh/canonical-web-and-design/certification.ubuntu.com/branch/master/graph/badge.svg)](https://codecov.io/gh/canonical-web-and-design/certification.ubuntu.com
+[![CircleCI build status](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com.svg?style=shield)](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com)
+[![Code coverage](https://codecov.io/gh/canonical-web-and-design/certification.ubuntu.com/branch/master/graph/badge.svg)](https://codecov.io/gh/canonical-web-and-design/certification.ubuntu.com)
+
 
 This is the repository for the new certification.ubuntu.com website.
 
