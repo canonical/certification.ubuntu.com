@@ -1,6 +1,6 @@
 canonicalwebteam.flask-base==0.3.3
 gevent==1.4.0
-python-frontmatter==0.4.5
+python-frontmatter==0.5.0
 requests==2.22.0
 mistune==0.8.4
 bleach==3.1.0
