@@ -3,8 +3,7 @@
 # Build stage: Install python dependencies
 # ===
 FROM ubuntu:bionic AS python-dependencies
-RUN apt update 
-RUN apt install --no-install-recommends --yes python3 python3-pip python3-setuptools
+RUN apt update && apt install --no-install-recommends --yes python3 python3-pip python3-setuptools
 ADD requirements.txt /tmp/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip pip3 install --user --requirement /tmp/requirements.txt
 
