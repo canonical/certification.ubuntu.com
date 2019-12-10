@@ -96,17 +96,14 @@
                 {{ release.kernel }} kernel.
               </p>
               <p></p>
-              <h4>Certification notes</h4>
-
               {% if release.notes %}
+              <h4>Certification notes</h4>
                 <dl>
                   {% for note in release.notes %}
                     <dt>{{ note.title }}</dt>
                     <dd><p>{{ note.comment.replace('\r\n\r\n', '</p><p>') | safe }}</p></dd>
                   {% endfor %}
                 </dl>
-              {% else %}
-                <p>There are no notes for this release.</p>
               {% endif %}
 
               {% if release.bios %}
