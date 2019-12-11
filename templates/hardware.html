@@ -89,11 +89,10 @@
               <p><a href="{{ release.download_url }}" id="download-url" class="button--primary link-cta-ubuntu cta-large">Download</a></p>
               {% endif %}
 
-
-              <h4 id="testing-details">Testing details</h4>
+              <h4 id="testing-details">Certification details</h4>
               <p>
-                This system was tested with {{ release.version }}, running the
-                {{ release.kernel }} kernel.
+                This system has been certified for {{ release.version }} using the {{ release.kernel }} kernel and is
+                considered certified for all {{ release.version }} point releases and HWE kernels as well.
               </p>
               <p></p>
               {% if release.notes %}
