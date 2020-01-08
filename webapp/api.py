@@ -63,6 +63,10 @@ class CertificationAPI:
         query=None,
         category__in=None,
         order_by=None,
+        device_identifier=None,
+        device_bus=None,
+        device_subsystem=None,
+        device_vendor_id=None,
     ):
         response = self._get(
             "certifiedmodels",
@@ -79,6 +83,10 @@ class CertificationAPI:
                 "category": category,
                 "category__in": category__in,
                 "order_by": order_by,
+                "device_identifier": device_identifier,
+                "device_bus": device_bus,
+                "device_subsystem": device_subsystem,
+                "device_vendor_id": device_vendor_id,
             },
         )
         response.raise_for_status()
