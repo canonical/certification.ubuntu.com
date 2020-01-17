@@ -631,18 +631,15 @@ def catalog_component(identifier, subsystem=None):
     page = int(flask.request.args.get("page") or "1")
 
     devices = api.certifiedmodeldevices(
-        identifier=identifier.replace("---", "/"), subsystem=subsystem, limit=0
+        identifier=identifier.replace("---", "/"), subsystem=subsystem, limit=1
     )["objects"]
 
     if not devices:
         flask.abort(404)
 
-    canonical_ids = [device["canonical_id"] for device in devices]
-
-    # Only get the first 267 canonical_ids, as the URL will be too long
-    # otherwise
     models_response = api.certifiedmodels(
-        canonical_id__in=",".join(canonical_ids[:267]),
+        device_identifier=identifier,
+        device_subsystem=subsystem,
         offset=(int(page) - 1) * 20,
     )
     models = models_response["objects"]
