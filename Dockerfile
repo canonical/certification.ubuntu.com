@@ -18,7 +18,6 @@ COPY --from=python-dependencies /root/.local/bin /root/.local/bin
 ENV PATH="/root/.local/bin:${PATH}"
 
 ADD . .
-
 # Set build id (standardized)
 ARG BUILD_ID
 ENV TALISKER_REVISION_ID "${BUILD_ID}"
