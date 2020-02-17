@@ -18,6 +18,7 @@ COPY --from=python-dependencies /root/.local/bin /root/.local/bin
 ENV PATH="/root/.local/bin:${PATH}"
 
 ADD . .
+RUN rm -rf package.json yarn.lock .babelrc webpack.config.js requirements.txt
 
 # Set build id (standardized)
 ARG BUILD_ID
