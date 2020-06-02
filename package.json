@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "yarn run serve",
     "clean": "rm -rf node_modules yarn-error.log *.log *.sqlite",
     "watch": "echo 'Nothing to watch'",
     "build": "echo 'Nothing to build'",
