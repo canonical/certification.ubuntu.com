@@ -1,6 +1,6 @@
-canonicalwebteam.flask-base==0.6.1
+canonicalwebteam.flask-base==0.6.3
 python-frontmatter==0.5.0
-requests==2.23.0
+requests==2.24.0
 mistune==0.8.4
 bleach==3.1.5
 
