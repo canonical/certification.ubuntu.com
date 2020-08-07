@@ -207,6 +207,8 @@
               <th>16.04 LTS</th>
               <th>Core 18</th>
               <th>18.04 LTS</th>
+              <th>Core 20</th>
+              <th>20.04 LTS</th>
               <th>comments</th>
             </tr>
           </thead>
@@ -221,6 +223,8 @@
                 <td>{% if "16.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["16.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
                 <td>{% if "Core 18" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 18"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
                 <td>{% if "18.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["18.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "Core 20" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 20"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+                <td>{% if "20.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["20.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
                 <td>{{ component.note }}</td>
               </tr>
             {% endfor %}
