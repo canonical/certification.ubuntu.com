@@ -7,93 +7,87 @@
   <div class="container-inner title">
     <h1>Component Devices</h1>
   </div>
-  <div class="three-col">
+  <div class="twelve-col">
     <form id="sidebar-search" method="get" class="body-search">
-      <fieldset>
-        <div id="search">
-          <input id="id_query" type="text" name="query" value="{{ query }}" placeholder="search" maxlength="200" />
-        </div>
-        <div id="filter">
-          <ul>
-            {% for vendor in all_vendors %}
-              <li>
-                <input type="checkbox" id="vendor_{{ loop.index }}" name="vendor" value="{{ vendor }}" {{ "checked" if vendor in vendors }}>
-                <label for="vendor_{{ loop.index }}">{{ vendor }}</label>
-              </li>
-            {% endfor %}
-          </ul>
-          <input type="submit" value="Update" />
-        </div>
-      </fieldset>
+      <div class="left" id="search">
+        <input id="id_query" type="text" name="query" value="{{ query }}" placeholder="search" maxlength="200" />
+      </div>
+      <ul class="left" style="padding: 5px 20px;">
+        {% for vendor in all_vendors %}
+          <li class="left" style="padding: 0px 15px;">
+            <input type="checkbox" id="vendor_{{ loop.index }}" name="vendor" value="{{ vendor }}" {{ "checked" if vendor in vendors }}>
+            <label for="vendor_{{ loop.index }}">{{ vendor }}</label>
+          </li>
+        {% endfor %}
+      </ul>
+      <input class="left" type="submit" value="Update" />
     </form>
   </div>
   <div class="main">
-    <div class="nine-col  last-col">
+    <div class="twelve-col  last-col">
       <p class="large">Canonical and hardware providers certify systems containing the components below.</p>
-      <div class="row">
-        <div class="pagination">
-          <div class="three-col">
-            <p>{{ total }} results</p>
-          </div>
-          <div class="six-col right last-col">
-            <p class="right">
-              {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
-              {% include "_pagination.html" %}
-              {% endwith %}
-            </p>
-          </div>
+      <div class="pagination">
+        <div class="three-col">
+          <p>{{ total }} results</p>
         </div>
-        <table>
-          <thead>
+        <div class="nine-col right last-col">
+          <p class="right">
+            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+            {% include "_pagination.html" %}
+            {% endwith %}
+          </p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Model</th>
+            <th>Make</th>
+            <th>14.04 LTS</th>
+            <th>Core 16</th>
+            <th>16.04 LTS</th>
+            <th>Core 18</th>
+            <th>18.04 LTS</th>
+            <th>Core 20</th>
+            <th>20.04 LTS</th>
+            <th>comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for component in components %}
             <tr>
-              <th>Vendor</th>
-              <th>Model</th>
-              <th>Make</th>
-              <th>14.04 LTS</th>
-              <th>Core 16</th>
-              <th>16.04 LTS</th>
-              <th>Core 18</th>
-              <th>18.04 LTS</th>
-              <th>Core 20</th>
-              <th>20.04 LTS</th>
-              <th>comments</th>
+              <td>{{ component.vendor_name }}</td>
+              <td><a href="/components/{{ component.id }}">{{ component.model }}</a></td>
+              <td>{{ component.vendor_make }}</td>
+              <td>{% if "14.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["14.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "Core 16" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 16"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "16.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["16.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "Core 18" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 18"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "18.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["18.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "Core 20" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 20"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{% if "20.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["20.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
+              <td>{{ component.note }}</td>
             </tr>
-          </thead>
-          <tbody>
-            {% for component in components %}
-              <tr>
-                <td>{{ component.vendor_name }}</td>
-                <td><a href="/components/{{ component.id }}">{{ component.model }}</a></td>
-                <td>{{ component.vendor_make }}</td>
-                <td>{% if "14.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["14.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "Core 16" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 16"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "16.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["16.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "Core 18" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 18"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "18.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["18.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "Core 20" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["Core 20"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{% if "20.04 LTS" in component.lts_certified_releases %}✔{% if component.lts_certified_releases["20.04 LTS"][0].third_party_driver %}<sup>(1)</sup>{% endif %}{% endif %}</td>
-                <td>{{ component.note }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <ul style="list-style-type:none;">
-          <li>&#10004; Supported</li>
-          <li>X Unsupported</li>
-          <li>? In progress</li>
-          <li>(1) Third party driver may be required.</li>
-        </ul>
-        <div class="pagination">
-          <div class="three-col">
-            <p>{{total}} results</p>
-          </div>
-          <div class="six-col right last-col">
-            <p class="right">
-              {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
-              {% include "_pagination.html" %}
-              {% endwith %}
-            </p>
-          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+      <ul style="list-style-type:none;">
+        <li>&#10004; Supported</li>
+        <li>X Unsupported</li>
+        <li>? In progress</li>
+        <li>(1) Third party driver may be required.</li>
+      </ul>
+      <div class="pagination">
+        <div class="three-col">
+          <p>{{total}} results</p>
+        </div>
+        <div class="nine-col right last-col">
+          <p class="right">
+            {% with pages=pages, page=page, total_pages=(total / 20), query_string=query_string %}
+            {% include "_pagination.html" %}
+            {% endwith %}
+          </p>
         </div>
       </div>
     </div>
