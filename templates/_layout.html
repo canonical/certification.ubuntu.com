@@ -79,7 +79,7 @@
                 >IoT</a
               >
             </li>
-    
+
             <li>
               <a
                 href="/soc"
@@ -323,7 +323,16 @@
           trademarks of Canonical Ltd.
         </p>
         <ul class="inline-list clear">
-          <li><a href="http://www.ubuntu.com/legal">Legal information</a></li>
+          <li>
+            <a href="http://www.ubuntu.com/legal">
+              Legal information
+            </a>
+          </li>
+          <li>
+            <a href="" class="js-revoke-cookie-manager">
+              Manage your tracker settings
+            </a>
+          </li>
           <li>
             <a href="https://github.com/canonical-web-and-design/certification.ubuntu.com/issues"
               >Report a bug on this site</a
@@ -337,6 +346,13 @@
       <!-- /.legal -->
     </footer>
 
-    <script src="https://assets.ubuntu.com/v1/ab9f5f4b-global.js"></script>
+    <script src="/static/js/modules/cookie-policy.js"></script>
+    <script src="/static/js/modules/global-nav.js"></script>
+    <script>
+      canonicalGlobalNav.createNav({
+        maxWidth: '64rem',
+      });
+      cpNs.cookiePolicy();
+    </script>
   </body>
 </html>

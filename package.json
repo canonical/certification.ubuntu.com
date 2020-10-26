@@ -1,13 +1,34 @@
 {
   "scripts": {
-    "start": "yarn run serve",
+    "start": "yarn run build && concurrently --raw 'yarn run watch' 'yarn run serve'",
     "clean": "rm -rf node_modules yarn-error.log *.log *.sqlite",
-    "watch": "echo 'Nothing to watch'",
-    "build": "echo 'Nothing to build'",
+    "watch": "watch -p 'static/sass/**/*.scss' -c 'yarn run build'",
+    "build": "yarn run build-css && yarn run build-js",
+    "build-css": "node-sass --include-path node_modules static/sass --source-map true --output-style compressed --output static/css && postcss --use autoprefixer --replace 'static/css/**/*.css'",
+    "build-js": "yarn run build-global-nav && yarn run build-cookie-policy",
+    "build-global-nav": "mkdir -p static/js/modules && cp node_modules/@canonical/global-nav/dist/global-nav.js static/js/modules/global-nav.js",
+    "build-cookie-policy": "mkdir -p static/js/modules && cp node_modules/@canonical/cookie-policy/build/js/cookie-policy.js static/js/modules/cookie-policy.js",
+    "watch-css": "watch -p 'static/sass/**/*.scss' -c 'yarn run build-css'",
+    "watch-js": "watch -p 'node_modules/global-nav/dist/index.js' -c 'yarn run build-js'",
     "format-python": "black --line-length 79 webapp",
     "lint-python": "flake8 webapp tests && black --check --line-length 79 webapp tests",
     "serve": "./entrypoint 0.0.0.0:${PORT}",
     "test": "yarn run lint-python && yarn run test-python",
     "test-python": "python3 -m unittest discover tests"
+  },
+  "dependencies" : {
+    "@canonical/global-nav": "2.4.1",
+    "@canonical/cookie-policy": "3.0.4",
+    "vanilla-framework": "2.12.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "9.8.0",
+    "concurrently": "5.2.0",
+    "node-sass": "4.14.1",
+    "postcss-cli": "7.1.1",
+    "stylelint": "13.6.0",
+    "stylelint-config-standard": "20.0.0",
+    "stylelint-order": "4.1.0",
+    "watch-cli": "0.2.3"
   }
 }
