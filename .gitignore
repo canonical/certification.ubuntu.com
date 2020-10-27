@@ -46,6 +46,8 @@ package-lock.json
 *.snap
 _site/
 *.*.map
+static/js/modules/
+static/css/
 
 # [env] Local environment settings
 .docker-project
@@ -55,3 +57,4 @@ _site/
 env/
 env[23]/
 .webcache
+.dotrun.json
