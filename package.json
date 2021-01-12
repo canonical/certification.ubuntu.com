@@ -22,11 +22,11 @@
     "vanilla-framework": "2.21.0"
   },
   "devDependencies": {
-    "autoprefixer": "9.8.0",
-    "concurrently": "5.2.0",
+    "autoprefixer": "9.8.6",
+    "concurrently": "5.3.0",
     "node-sass": "4.14.1",
-    "postcss-cli": "7.1.1",
-    "stylelint": "13.6.0",
+    "postcss-cli": "7.1.2",
+    "stylelint": "13.8.0",
     "stylelint-config-standard": "20.0.0",
     "stylelint-order": "4.1.0",
     "watch-cli": "0.2.3"
