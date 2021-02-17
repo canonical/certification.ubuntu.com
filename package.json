@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@canonical/global-nav": "2.4.5",
-    "@canonical/cookie-policy": "3.1.2",
-    "vanilla-framework": "2.23.0"
+    "@canonical/cookie-policy": "3.2.0",
+    "vanilla-framework": "2.24.0"
   },
   "devDependencies": {
     "autoprefixer": "9.8.6",
