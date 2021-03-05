@@ -22,7 +22,7 @@
     "vanilla-framework": "2.24.1"
   },
   "devDependencies": {
-    "autoprefixer": "9.8.6",
+    "autoprefixer": "10.2.5",
     "concurrently": "5.3.0",
     "sass": "1.27.0",
     "postcss-cli": "7.1.2",
