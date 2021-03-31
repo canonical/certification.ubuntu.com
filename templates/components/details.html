@@ -60,7 +60,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for name, details in component.lts_certified_releases.items() %}
+            {% for name, details in component.lts_releases.items() %}
               <tr>
                 <td>{{ details.0.status.title() }}</td>
                 <td>{{ details.0.release }}</td>
