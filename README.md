@@ -1,3 +1,9 @@
+**Archived**
+
+The entire domain at certification.ubuntu.com [is now redirected](https://github.com/canonical/ubuntu.com/blob/main/konf/site.yaml#L385) by the ubuntu.com service to ubuntu.com/cerification. This app is no longer used.
+
+---
+
 # Repository for certification.ubuntu.com
 
 [![CircleCI build status](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com.svg?style=shield)](https://circleci.com/gh/canonical-web-and-design/certification.ubuntu.com)
